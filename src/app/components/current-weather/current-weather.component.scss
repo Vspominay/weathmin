@@ -1,0 +1,74 @@
+@import "../../styles/colors.scss";
+
+.current {
+    align-self: center;
+    color: $textColor;
+    text-align: center;
+
+    &__wrap-city-date,
+    &-image {
+        margin-bottom: 10px;
+    }
+
+    &__inner {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    &-image {
+        max-width: 54px;
+        text-align: center;
+        font-size: 12px;
+        img {
+            max-width: 42px;
+        }
+    }
+
+    &-city {
+        h2 {
+            font-weight: 400;
+            font-size: 36px;
+            line-height: 48px;
+        }
+    }
+
+    &-date {
+        font-size: 13px;
+    }
+
+    &-degree {
+        font-size: 36px;
+        font-weight: 700;
+    }
+}
+
+@media (min-width: 768px) {
+    .current {
+        &__wrap-city-date,
+        &-image {
+            margin: 0px;
+        }
+        &__inner {
+            flex-direction: row;
+        }
+
+        &-degree {
+            order: 1;
+            font-size: 40px;
+            margin-right: 30px;
+        }
+        &__wrap-city-date {
+            min-height: 100%;
+            order: 2;
+            margin-right: 20px;
+            text-align: left;
+        }
+        &-image {
+            order: 3;
+        }
+    }
+}
+
+@media (min-width: 1024px) {
+}

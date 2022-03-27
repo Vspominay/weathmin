@@ -1,0 +1,13 @@
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+    background: center center/ cover no-repeat
+            url(../assets/image/mist/mist_state3.jpg),
+        rgba($color: #000000, $alpha: 0.25);
+    background-blend-mode: multiply;
+    background-attachment: fixed;
+    position: relative;
+}
+.full-width {
+    width: 100%;
+}

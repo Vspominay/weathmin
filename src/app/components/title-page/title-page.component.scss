@@ -1,0 +1,62 @@
+@import "../../styles/container.scss";
+@import "../../styles/colors.scss";
+
+.application {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.logo {
+    margin-bottom: 45px;
+}
+
+.title-page {
+    padding: 25px 0px;
+    height: 80%;
+
+    &__inner {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (min-width: 768px) {
+    .logo {
+        margin-bottom: 0;
+    }
+
+    .application {
+        flex-direction: row;
+
+        .container {
+            margin: 0 auto;
+        }
+    }
+
+    .title-page {
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        padding: 65px 0px;
+
+        &__bar {
+            flex: 0 0 30%;
+        }
+        &__inner {
+            flex-direction: row;
+            padding: 0 80px;
+        }
+        &__content {
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+    }
+}

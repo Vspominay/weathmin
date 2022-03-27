@@ -1,0 +1,29 @@
+<div class="current" *ngIf="currentWeather.city">
+    <div class="current__inner">
+        <div class="current__wrap-city-date">
+            <div class="current-city">
+                <h2>{{ currentWeather.city }}</h2>
+            </div>
+            <div class="current-date">
+                <p>
+                    {{
+                        currentWeather?.time?.dt
+                            | date: "hh:mm aa - EEEE, dd MMM ‘yy"
+                    }}
+                </p>
+            </div>
+        </div>
+        <div class="current-image">
+            <img
+                src="{{ currentWeather?.image }}"
+                alt="weather"
+                width="64"
+                height="48"
+            />
+            <p>{{ currentWeather?.desc?.description }}</p>
+        </div>
+        <div class="current-degree">
+            <h2>{{ currentWeather.degree + "°" }}</h2>
+        </div>
+    </div>
+</div>
