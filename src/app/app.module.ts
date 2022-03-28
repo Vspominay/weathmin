@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { DailyForecastComponent } from './components/daily-forecast/daily-forecast.component';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -16,7 +17,8 @@ import { InfoBarComponent } from './components/info-bar/info-bar.component';
     TitlePageComponent,
     CurrentWeatherComponent,
     CelsiusPipe,
-    InfoBarComponent
+    InfoBarComponent,
+    DailyForecastComponent
   ],
   imports: [
     BrowserModule,

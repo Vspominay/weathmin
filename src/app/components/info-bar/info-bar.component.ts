@@ -13,7 +13,6 @@ export class InfoBarComponent implements OnInit {
 
     currentWeather: currentWeather | any =  {};
     week: Daily[] = [];
-    test = -45;
 
     constructor(
         private storage: StorageService
@@ -24,6 +23,7 @@ export class InfoBarComponent implements OnInit {
         this.storage.$currentDay
         .subscribe((weather: currentWeather | any) => {
             if (weather.city) {
+                
                 let temp = this.currentWeather.probability;
 
                 this.currentWeather = weather;
@@ -44,10 +44,12 @@ export class InfoBarComponent implements OnInit {
     }
 
     setWindDirection(wind: Wind){
+        
         let directionItem = document.querySelector('.icon-wind-direction') as HTMLElement;
-        let direction = wind.deg - 45;
-        directionItem.style.setProperty("transform", `rotate(${direction}deg)` );
-        
-        
+        if (directionItem) {
+            let direction = wind.deg - 45;
+            directionItem.style.setProperty("transform", `rotate(${direction}deg)` );
+            
+        }   
     }
 }

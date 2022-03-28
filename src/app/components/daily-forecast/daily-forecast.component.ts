@@ -1,4 +1,6 @@
+import { StorageService } from 'src/app/services/storage.service';
 import { Component, OnInit } from '@angular/core';
+import { Daily } from 'src/app/models/daily';
 
 @Component({
   selector: 'app-daily-forecast',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DailyForecastComponent implements OnInit {
 
-  constructor() { }
+    week: Daily[] = [];
 
-  ngOnInit(): void {
-  }
+    constructor(
+        private storage: StorageService
+    ) { }
+
+    ngOnInit(): void {
+        this.storage.$weekInformation
+            .subscribe((week: any | Daily[]) => {                
+                this.week = week;
+            })
+    }
 
 }

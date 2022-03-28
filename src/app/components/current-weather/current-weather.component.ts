@@ -5,13 +5,16 @@ import { WeatherState } from './../../models/weatherState';
 import { Wind } from './../../models/wind';
 import { StorageService } from '../../services/storage.service';
 import { WeatherService } from './../../services/weather.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-current-weather',
   templateUrl: './current-weather.component.html',
   styleUrls: ['./current-weather.component.scss']
 })
+
 export class CurrentWeatherComponent implements OnInit {
 
     currentWeather: currentWeather | any =  {};

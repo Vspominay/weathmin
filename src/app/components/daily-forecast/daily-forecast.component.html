@@ -1,1 +1,127 @@
-<p>daily-forecast works!</p>
+<div class="content">
+    <div class="bg"></div>
+    <div class="daily">
+        <div class="container">
+            <div class="mobile">
+                <div class="daily__content">
+                    <div class="title-page__content">
+                        <div class="logo">
+                            <img
+                                src="../../assets/image/Logo.png"
+                                alt="Weathmin"
+                                height="28"
+                                width="85"
+                            />
+                        </div>
+                        <app-current-weather></app-current-weather>
+                    </div>
+
+                    <div class="daily__week">
+                        <div class="week-title">
+                            <p>Daily forecast</p>
+                        </div>
+
+                        <ul class="week-forecast__item">
+                            <li class="forecast-item" *ngFor="let day of week">
+                                <img
+                                    src="{{ day.image }}"
+                                    width="35"
+                                    alt="weather"
+                                />
+                                <div class="forecast-item__day">
+                                    {{ day.time.dt | date: "EEE, dd MMM" }}
+                                </div>
+                                <div class="forecast-item__temperature">
+                                    <span class="temperature-max">
+                                        {{ day.temp.max + "°" }}
+                                    </span>
+                                    <span class="temperature-min">
+                                        {{ day.temp.min + "°" }}
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="button-line">
+                        <button routerLink="/weathmin" class="button">
+                            <span class="icon-arrow"></span>
+                            <span>Home</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="desktop">
+                <div class="daily-header">
+                    <div class="logo">
+                        <img
+                            src="../../assets/image/Logo.png"
+                            alt="Weathmin"
+                            height="28"
+                            width="85"
+                        />
+                    </div>
+
+                    <div class="button-line">
+                        <button routerLink="/weathmin" class="button">
+                            <span class="icon-arrow"></span>
+                            <span>Home</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="week-title">
+                    <p>Daily forecast</p>
+                </div>
+
+                <ul class="week-forecast__items">
+                    <li class="forecast-item" *ngFor="let day of week">
+                        <div class="forecast-item__day">
+                            <span>{{ day.time.dt | date: "EEEE \n" }}</span>
+                            <span>{{ day.time.dt | date: "dd MMM ‘yy" }}</span>
+                        </div>
+
+                        <img
+                            class="weather-image"
+                            src="{{ day.image }}"
+                            title="{{ day.desc }}"
+                            width="40"
+                            alt="weather"
+                        />
+
+                        <div class="forecast-item__temperature">
+                            <div class="temperature-mm">
+                                <div class="status">min</div>
+                                <div>{{ day.temp.min + "°" }}</div>
+                                <img
+                                    class="mm-image"
+                                    src="../../../assets/image/other/min.png"
+                                    width="24"
+                                    height="40"
+                                />
+                            </div>
+                            <div class="temperature-mm">
+                                <div class="status">max</div>
+                                <div>{{ day.temp.max + "°" }}</div>
+                                <img
+                                    class="mm-image"
+                                    src="../../../assets/image/other/max.png"
+                                    width="24"
+                                    height="40"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="button-line">
+                            <button routerLink="/weathmin" class="button">
+                                <span class="icon-arrow"></span>
+                                <span>Details</span>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,217 @@
+@import "../../styles/colors.scss";
+@import "../../styles/container.scss";
+@import "../../styles/button.scss";
+
+.desktop {
+    display: none;
+}
+.content {
+    position: relative;
+}
+
+.mobile {
+    .button-line {
+        margin: 0 auto;
+
+        .icon-arrow {
+            margin: 0px 5px 3px 0;
+            transform: rotate(180deg);
+        }
+    }
+}
+.bg {
+    position: absolute;
+    z-index: 1;
+
+    min-height: 100vh;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: center center/ cover no-repeat
+            url(../../../assets/image/mist/mist_state3.jpg),
+        rgba($color: #000000, $alpha: 0.25);
+    background-blend-mode: multiply;
+    background-attachment: fixed;
+    filter: blur(5px);
+}
+.daily {
+    z-index: 2;
+    position: relative;
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        padding: 25px 0;
+    }
+    .title-page__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo {
+        margin-bottom: 45px;
+    }
+}
+
+.daily__week {
+    margin: 0 auto;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+
+    .week-title {
+        color: rgba($color: $unactive-color, $alpha: 0.8);
+        pointer-events: none;
+        font-size: 20px;
+        font-weight: bold;
+        border-bottom: 2px solid rgba($color: $unactive-color, $alpha: 0.8);
+    }
+}
+.week-forecast__item {
+    padding: 30px 0;
+
+    .forecast-item {
+        padding: 10px 20px;
+        margin-top: 12px;
+        background-color: rgba($color: #000000, $alpha: 0.25);
+        border: 1px solid #fff;
+
+        border-radius: 20px;
+
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: 0.3s;
+
+        &__temperature {
+            font-weight: 500;
+            .temperature-min {
+                margin-left: 5px;
+                color: rgba($color: $unactive-color, $alpha: 0.8);
+            }
+        }
+        &__day {
+            flex: 1 1 auto;
+            font-size: 16px;
+            font-weight: 300;
+            margin: 0px 20px 0 10px;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .mobile {
+        display: none;
+    }
+    .desktop {
+        display: block;
+        position: relative;
+    }
+
+    .desktop {
+        padding: 60px 0;
+        .daily-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+        .week-title {
+            font-weight: 700;
+            color: rgba($color: $unactive-color, $alpha: 0.8);
+            margin-bottom: 40px;
+            font-size: 32px;
+            pointer-events: none;
+        }
+        .week-forecast__items {
+            border-radius: 15px;
+            background-color: rgba($color: #000000, $alpha: 0.25);
+            overflow-y: auto;
+            scrollbar-color: rgba($color: $unactive-color, $alpha: 0.8)
+                transparent; /* «цвет ползунка» «цвет полосы скроллбара» */
+            scrollbar-width: thin; /* толщина */
+
+            &::-webkit-scrollbar {
+                height: 6px; /* высота для горизонтального скролла */
+                background-color: transparent;
+            }
+
+            /* ползунок скроллбара */
+            &::-webkit-scrollbar-thumb {
+                background-color: rgba($color: $unactive-color, $alpha: 0.8);
+                border-radius: 9em;
+            }
+            max-width: 100%;
+            display: flex;
+
+            .forecast-item {
+                height: 100%;
+                padding: 30px 40px;
+                font-weight: 400;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                position: relative;
+
+                &::after {
+                    content: "";
+                    display: inline-block;
+                    height: 60%;
+                    width: 2px;
+                    right: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    position: absolute;
+                    background-color: rgba(
+                        $color: $unactive-color,
+                        $alpha: 0.8
+                    );
+                    transition: 0.3s;
+                }
+
+                &__day {
+                    font-size: 14px;
+                    text-align: center;
+                    margin-bottom: 15px;
+
+                    & span:first-child {
+                        font-size: 20px;
+                        font-weight: 500;
+                    }
+                }
+                .weather-image {
+                    margin-bottom: 15px;
+                }
+
+                &__temperature {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 40px;
+
+                    .temperature-mm {
+                        position: relative;
+                        font-weight: 400;
+                        padding: 7px 12px;
+                        .status {
+                            color: rgba($color: $unactive-color, $alpha: 0.8);
+                            font-size: 14px;
+                            pointer-events: none;
+                            margin-bottom: 3px;
+                            font-weight: 500;
+                            text-transform: uppercase;
+                        }
+
+                        .mm-image {
+                            position: absolute;
+                            bottom: 0;
+                            right: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
