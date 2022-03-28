@@ -1,8 +1,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 @import "./app/styles/normalize.scss";
 @import "./app/styles/icons.css";
+@import "./app/styles/colors.scss";
 
 body {
     font-family: "Poppins", sans-serif;
     color: #fff;
+    overflow-x: none;
+}
+
+body,
+html {
+    scrollbar-color: rgba($color: $unactive-color, $alpha: 0.8)
+        rgba(rgb(94, 88, 88), $alpha: 1); /* «цвет ползунка» «цвет полосы скроллбара» */
+    scrollbar-width: none; /* толщина */
+
+    &::-webkit-scrollbar {
+        width: 6px; /* высота для горизонтального скролла */
+        height: 0px;
+        background-color: rgba(rgb(94, 88, 88), $alpha: 1);
+    }
+
+    /* ползунок скроллбара */
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba($color: $unactive-color, $alpha: 0.8);
+        border-radius: 9em;
+    }
 }

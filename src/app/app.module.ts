@@ -2,13 +2,12 @@ import { DailyForecastComponent } from './components/daily-forecast/daily-foreca
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TitlePageComponent } from './components/title-page/title-page.component';
 import { CurrentWeatherComponent } from './components/current-weather/current-weather.component';
-import { CelsiusPipe } from './pipes/celsius.pipe';
 import { InfoBarComponent } from './components/info-bar/info-bar.component';
 
 @NgModule({
@@ -16,7 +15,6 @@ import { InfoBarComponent } from './components/info-bar/info-bar.component';
     AppComponent,
     TitlePageComponent,
     CurrentWeatherComponent,
-    CelsiusPipe,
     InfoBarComponent,
     DailyForecastComponent
   ],
@@ -24,6 +22,7 @@ import { InfoBarComponent } from './components/info-bar/info-bar.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

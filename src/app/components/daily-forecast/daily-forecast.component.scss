@@ -12,13 +12,16 @@
 .mobile {
     .button-line {
         margin: 0 auto;
-
-        .icon-arrow {
-            margin: 0px 5px 3px 0;
-            transform: rotate(180deg);
-        }
     }
 }
+
+.button-line {
+    .icon-arrow {
+        margin: 3px 5px 0px 0;
+        transform: rotate(0deg);
+    }
+}
+
 .bg {
     position: absolute;
     z-index: 1;

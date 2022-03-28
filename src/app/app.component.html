@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <div class="full-width">
-        <router-outlet></router-outlet>
+    <div class="full-width" [@routerAnimations]="prepareRoute(outlet)">
+        <router-outlet #outlet="outlet"></router-outlet>
     </div>
 </div>

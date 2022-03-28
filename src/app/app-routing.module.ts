@@ -5,8 +5,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-    {path: "weathmin", component: TitlePageComponent},
-    {path: "daily", component: DailyForecastComponent},
+    {path: "weathmin", component: TitlePageComponent, data: {animation: 'isRight'}},
+    {path: "daily", component: DailyForecastComponent,data: {animation: 'isLeft'}},
     {path: "hourly", component: HourlyForecastComponent},
     {path: "",redirectTo: "/weathmin", pathMatch: "full"},
     {path: "**", component: TitlePageComponent},

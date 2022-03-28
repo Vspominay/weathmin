@@ -10,7 +10,6 @@ export class GetIconService {
     getIcon(weatherMain: string = "clouds", type: string = "few clouds"): string{
 
         const imageSrc = "../../../assets/image/";
-
         switch (weatherMain.toLowerCase()) {
             case "clouds":
                 switch (type.toLowerCase()) {
