@@ -1,6 +1,7 @@
 @import "../../styles/colors.scss";
 @import "../../styles/container.scss";
 @import "../../styles/button.scss";
+@import "../../styles/backgorund.scss";
 
 .desktop {
     display: none;
@@ -22,22 +23,6 @@
     }
 }
 
-.bg {
-    position: absolute;
-    z-index: 1;
-
-    min-height: 100vh;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    background: center center/ cover no-repeat
-            url(../../../assets/image/mist/mist_state3.jpg),
-        rgba($color: #000000, $alpha: 0.25);
-    background-blend-mode: multiply;
-    background-attachment: fixed;
-    filter: blur(5px);
-}
 .daily {
     z-index: 2;
     position: relative;
@@ -159,7 +144,7 @@
                 flex-direction: column;
                 position: relative;
 
-                &::after {
+                &:not(:last-child):after {
                     content: "";
                     display: inline-block;
                     height: 60%;
@@ -185,14 +170,15 @@
                         font-weight: 500;
                     }
                 }
-                .weather-image {
+                .img-container {
+                    min-height: 45px;
                     margin-bottom: 15px;
                 }
-
                 &__temperature {
                     display: flex;
                     align-items: center;
                     margin-bottom: 40px;
+                    flex-grow: 1;
 
                     .temperature-mm {
                         position: relative;

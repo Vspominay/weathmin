@@ -3,46 +3,9 @@
 @import "../../styles/button.scss";
 @import "../../styles/colors.scss";
 
-.container {
-    padding: 50px 20px;
+.bar-current {
+    padding: 30px 0;
 }
-
-@media (min-width: 1024px) {
-    .container {
-        padding: 50px 20px 50px 40px;
-    }
-}
-
-.bar {
-    position: relative;
-    z-index: 2;
-
-    &::after {
-        filter: blur(10px);
-        background: linear-gradient(
-            180deg,
-            rgba(#000, 0.5) 40%,
-            rgba(rgb(73, 71, 71), 0.2) 100%
-        );
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        content: "";
-        z-index: -1;
-    }
-
-    .separate-line {
-        display: block;
-        height: 2px;
-        background-color: $sub-text;
-    }
-    &-current {
-        padding: 30px 0;
-    }
-}
-
 .current {
     font-size: 16px;
     font-weight: 300;
@@ -74,6 +37,10 @@
         max-width: 60px;
         margin-right: 10px;
     }
+}
+
+.icon-wind-direction {
+    margin-right: 15px;
 }
 
 .button-line {

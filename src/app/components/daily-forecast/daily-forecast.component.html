@@ -22,7 +22,11 @@
                         </div>
 
                         <ul class="week-forecast__item">
-                            <li class="forecast-item" *ngFor="let day of week">
+                            <li
+                                class="forecast-item"
+                                *ngFor="let day of week"
+                                routerLink="/hourly/{{ day.time.dt }}"
+                            >
                                 <img
                                     src="{{ day.image }}"
                                     width="35"
@@ -82,13 +86,15 @@
                             <span>{{ day.time.dt | date: "dd MMM ‘yy" }}</span>
                         </div>
 
-                        <img
-                            class="weather-image"
-                            src="{{ day.image }}"
-                            title="{{ day.desc }}"
-                            width="40"
-                            alt="weather"
-                        />
+                        <div class="img-container">
+                            <img
+                                class="weather-image"
+                                src="{{ day.image }}"
+                                title="{{ day.desc }}"
+                                width="40"
+                                alt="weather"
+                            />
+                        </div>
 
                         <div class="forecast-item__temperature">
                             <div class="temperature-mm">
@@ -114,7 +120,10 @@
                         </div>
 
                         <div class="button-line">
-                            <button routerLink="/weathmin" class="button">
+                            <button
+                                routerLink="/hourly/{{ day.time.dt }}"
+                                class="button"
+                            >
                                 <span class="icon-arrow"></span>
                                 <span>Details</span>
                             </button>

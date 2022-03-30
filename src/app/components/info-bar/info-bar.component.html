@@ -1,40 +1,10 @@
 <div class="bar">
     <div class="container">
         <div class="bar__inner">
-            <div class="bar-current">
-                <span class="current-title"> Weather Details </span>
-
-                <div class="current-items">
-                    <div class="current-item">
-                        <span>Humidity</span>
-                        <span>{{ currentWeather.humidity + " %" }}</span>
-                    </div>
-                    <div class="current-item">
-                        <span>Pressure</span>
-                        <span>{{ currentWeather.pressure + " mm" }}</span>
-                    </div>
-                    <div class="current-item">
-                        <span>Wind</span>
-                        <div class="current-item__value">
-                            <span class="icon-wind-direction"></span>
-                            <span>{{
-                                currentWeather?.wind?.speed + " m/s"
-                            }}</span>
-                        </div>
-                    </div>
-                    <div class="current-item">
-                        <span>Probability precipitation</span>
-                        <span>{{ currentWeather.probability + " %" }}</span>
-                    </div>
-                </div>
-
-                <div class="button-line">
-                    <button class="button">
-                        <span class="icon-arrow"></span>
-                        <span>Details</span>
-                    </button>
-                </div>
-            </div>
+            <app-detail-weather
+                [currentWeather]="currentWeather"
+                [buttonVisibility]="true"
+            ></app-detail-weather>
 
             <span class="separate-line"></span>
 

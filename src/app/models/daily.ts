@@ -1,9 +1,9 @@
 import { Temperature } from './temperature';
-import { currentWeather } from './currentWeather';
+import { CurrentWeather } from './currentWeather';
 
 
-export interface Daily extends currentWeather {
-    temp: Temperature,
+export interface Daily extends CurrentWeather {
+    temp?: Temperature | any,
     clouds: number,
     rain: number, //Precipitation volume
 }

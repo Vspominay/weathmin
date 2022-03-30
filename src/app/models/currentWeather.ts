@@ -2,7 +2,7 @@ import { Timezone } from './timezone';
 import { WeatherState } from './weatherState';
 import { Wind } from './wind';
 
-export interface currentWeather {
+export interface CurrentWeather {
     city:string,
     time:Timezone,
     degree?:number,

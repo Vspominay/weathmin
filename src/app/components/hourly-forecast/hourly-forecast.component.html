@@ -1,1 +1,350 @@
-<p>hourly-forecast works!</p>
+<div class="content">
+    <div class="bg"></div>
+
+    <div class="hourly">
+        <div class="container">
+            <div class="mobile">
+                <div class="hourly__content">
+                    <div class="title-page__content">
+                        <div class="logo">
+                            <img
+                                src="../../assets/image/Logo.png"
+                                alt="Weathmin"
+                                height="28"
+                                width="85"
+                            />
+                        </div>
+
+                        <app-current-weather></app-current-weather>
+                    </div>
+
+                    <div class="hourly__content">
+                        <div class="hourly__content-soon">
+                            <div class="">
+                                <span
+                                    class="soon-text"
+                                    [class.active]="todayDay == dayByUrl"
+                                    routerLink="/hourly/{{ todayMs }}"
+                                    (click)="setDay(todayDay)"
+                                    >Today</span
+                                >
+                                <span
+                                    class="soon-text"
+                                    [class.active]="todayDay + 1 == dayByUrl"
+                                    routerLink="/hourly/{{
+                                        todayMs + 24 * 60 * 60 * 1000
+                                    }}"
+                                    (click)="setDay(todayDay + 1)"
+                                    >Tomorrow</span
+                                >
+                            </div>
+
+                            <span routerLink="/daily" class="soon-next">
+                                Next 7 days ></span
+                            >
+                        </div>
+
+                        <ul class="hourly__list" *ngIf="displayDay.length">
+                            <li
+                                class="hourly__list-item"
+                                *ngFor="let hour of displayDay"
+                                (click)="setActiveTime(hour)"
+                                [class.active]="
+                                    hour?.time?.dt == activeTime?.time?.dt
+                                "
+                            >
+                                <span class="list-item__time">
+                                    {{ hour?.time?.dt | date: "hh aa" }}
+                                </span>
+                                <div class="list-item__content">
+                                    <div class="image-container">
+                                        <img
+                                            src="{{ hour?.image }}"
+                                            alt="weather"
+                                            width="27"
+                                        />
+                                    </div>
+                                    <span class="item-temp">
+                                        {{ hour?.temp + "°" }}
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul
+                            class="hourly__list listLongDate"
+                            *ngIf="
+                                dayByUrl != todayDay && dayByUrl != todayDay + 1
+                            "
+                        >
+                            <li class="hourly__list-item active">
+                                <span class="list-item__time"> morning </span>
+                                <div class="list-item__content">
+                                    <div class="image-container">
+                                        <img
+                                            src="../../../assets/image/other/day_period/morning.png"
+                                            alt="weather"
+                                            width="30"
+                                        />
+                                    </div>
+                                    <span class="item-temp">
+                                        {{ activeTime?.temp.morning + "°" }}
+                                    </span>
+                                </div>
+                            </li>
+
+                            <li class="hourly__list-item active">
+                                <span class="list-item__time"> day </span>
+                                <div class="list-item__content">
+                                    <div class="image-container">
+                                        <img
+                                            src="../../../assets/image/other/day_period/day.png"
+                                            alt="weather"
+                                            width="30"
+                                        />
+                                    </div>
+                                    <span class="item-temp">
+                                        {{ activeTime?.temp.day + "°" }}
+                                    </span>
+                                </div>
+                            </li>
+
+                            <li class="hourly__list-item active">
+                                <span class="list-item__time"> evening </span>
+                                <div class="list-item__content">
+                                    <div class="image-container">
+                                        <img
+                                            src="../../../assets/image/other/day_period/evening.png"
+                                            alt="weather"
+                                            width="30"
+                                        />
+                                    </div>
+                                    <span class="item-temp">
+                                        {{ activeTime?.temp.evening + "°" }}
+                                    </span>
+                                </div>
+                            </li>
+
+                            <li class="hourly__list-item active">
+                                <span class="list-item__time"> night </span>
+                                <div class="list-item__content">
+                                    <div class="image-container">
+                                        <img
+                                            src="../../../assets/image/other/day_period/night.png"
+                                            alt="weather"
+                                            width="30"
+                                        />
+                                    </div>
+                                    <span class="item-temp">
+                                        {{ activeTime?.temp.night + "°" }}
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="horly__details">
+                            <app-detail-weather
+                                [currentWeather]="activeTime"
+                            ></app-detail-weather>
+                        </div>
+
+                        <div class="button-line">
+                            <button routerLink="/weathmin" class="button">
+                                <span class="icon-arrow"></span>
+                                <span>Home</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="desktop">
+                <div class="daily-header">
+                    <div class="logo">
+                        <img
+                            src="../../assets/image/Logo.png"
+                            alt="Weathmin"
+                            height="28"
+                            width="85"
+                        />
+                    </div>
+
+                    <div class="navigation-buttons">
+                        <div class="button-line">
+                            <button routerLink="/weathmin" class="button">
+                                <span class="icon-arrow"></span>
+                                <span>Home</span>
+                            </button>
+                        </div>
+                        <div class="button-line">
+                            <button routerLink="/daily" class="button">
+                                <span class="icon-arrow"></span>
+                                <span>Next 7 days</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="week-title">
+                    <p>Hourly Forecast</p>
+                </div>
+
+                <ul class="week-forecast__items" *ngIf="displayDay.length">
+                    <li
+                        class="forecast-item"
+                        *ngFor="let hour of displayDay"
+                        (click)="setActiveTime(hour)"
+                        [class.active]="hour?.time?.dt == activeTime?.time?.dt"
+                    >
+                        <div class="forecast-item__day">
+                            {{ hour?.time?.dt | date: "hh aa" }}
+                        </div>
+
+                        <div class="img-container">
+                            <img
+                                class="weather-image"
+                                src="{{ hour?.image }}"
+                                width="40"
+                                alt="weather"
+                            />
+                        </div>
+
+                        <div class="forecast-item__temperature">
+                            <div class="temperature-mm">
+                                <div>
+                                    {{ hour?.temp + "°" }}
+                                </div>
+                                <img
+                                    class="mm-image"
+                                    src="../../../assets/image/other/min.png"
+                                    width="24"
+                                    height="40"
+                                />
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul
+                    class="week-forecast__items listLongDate"
+                    *ngIf="dayByUrl != todayDay && dayByUrl != todayDay + 1"
+                >
+                    <li class="forecast-item">
+                        <div class="forecast-item__day">morning</div>
+
+                        <div class="img-container">
+                            <img
+                                class="weather-image"
+                                src="../../../assets/image/other/day_period/morning.png"
+                                width="40"
+                                alt="weather"
+                            />
+                        </div>
+
+                        <div class="forecast-item__temperature">
+                            <div class="temperature-mm">
+                                {{ activeTime?.temp.morning + "°" }}
+                                <img
+                                    class="mm-image"
+                                    src="../../../assets/image/other/min.png"
+                                    width="24"
+                                    height="40"
+                                />
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="forecast-item">
+                        <div class="forecast-item__day">day</div>
+
+                        <div class="img-container">
+                            <img
+                                class="weather-image"
+                                src="../../../assets/image/other/day_period/day.png"
+                                width="40"
+                                alt="weather"
+                            />
+                        </div>
+
+                        <div class="forecast-item__temperature">
+                            <div class="temperature-mm">
+                                {{ activeTime?.temp.day + "°" }}
+                                <img
+                                    class="mm-image"
+                                    src="../../../assets/image/other/min.png"
+                                    width="24"
+                                    height="40"
+                                />
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="forecast-item">
+                        <div class="forecast-item__day">evening</div>
+
+                        <div class="img-container">
+                            <img
+                                class="weather-image"
+                                src="../../../assets/image/other/day_period/evening.png"
+                                width="40"
+                                alt="weather"
+                            />
+                        </div>
+
+                        <div class="forecast-item__temperature">
+                            <div class="temperature-mm">
+                                {{ activeTime?.temp.evening + "°" }}
+                                <img
+                                    class="mm-image"
+                                    src="../../../assets/image/other/min.png"
+                                    width="24"
+                                    height="40"
+                                />
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="forecast-item">
+                        <div class="forecast-item__day">night</div>
+
+                        <div class="img-container">
+                            <img
+                                class="weather-image"
+                                src="../../../assets/image/other/day_period/night.png"
+                                width="40"
+                                alt="weather"
+                            />
+                        </div>
+
+                        <div class="forecast-item__temperature">
+                            <div class="temperature-mm">
+                                {{ activeTime?.temp.night + "°" }}
+                                <img
+                                    class="mm-image"
+                                    src="../../../assets/image/other/min.png"
+                                    width="24"
+                                    height="40"
+                                />
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="state">
+                    <div class="state__image">
+                        <div class="state-title">
+                            <p>Weather</p>
+                        </div>
+
+                        <app-current-weather></app-current-weather>
+                    </div>
+                    <div class="state__details">
+                        <app-detail-weather
+                            [currentWeather]="activeTime"
+                        ></app-detail-weather>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

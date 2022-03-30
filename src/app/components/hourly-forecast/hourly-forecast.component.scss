@@ -1,0 +1,307 @@
+@import "../../styles/colors.scss";
+@import "../../styles/container.scss";
+@import "../../styles/button.scss";
+@import "../../styles/backgorund.scss";
+
+.desktop {
+    display: none;
+}
+.content {
+    position: relative;
+}
+
+.mobile {
+    .button-line {
+        margin: 0 auto;
+    }
+}
+
+.button-line {
+    .icon-arrow {
+        transform: rotate(0);
+        margin: 3px 5px 0px 0;
+    }
+}
+
+.hourly {
+    z-index: 2;
+    position: relative;
+    &__content {
+        display: flex;
+        flex-direction: column;
+        padding: 25px 0;
+    }
+    .title-page__content {
+        min-height: 50vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo {
+        margin-bottom: 45px;
+    }
+}
+
+.hourly__content {
+    max-width: 360px;
+    margin: 0 auto;
+
+    &-soon {
+        display: flex;
+        padding-bottom: 10px;
+        align-items: center;
+        font-weight: 300;
+        font-size: 14px;
+        color: $textColor;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        border-bottom: 2px solid $unactive-color;
+
+        span {
+            cursor: pointer;
+        }
+        .soon-text {
+            margin-left: 10px;
+            color: $unactive-color;
+
+            &.active {
+                color: #fff;
+            }
+        }
+
+        .soon-next {
+            margin-left: 15px;
+        }
+    }
+
+    .listLongDate {
+        margin: 0 auto;
+    }
+
+    .hourly__list {
+        overflow-y: auto;
+        max-width: 100%;
+        display: flex;
+        align-items: center;
+        margin-bottom: 45px;
+        padding-bottom: 10px;
+        scrollbar-color: rgba($color: $unactive-color, $alpha: 0.8) transparent; /* «цвет ползунка» «цвет полосы скроллбара» */
+        scrollbar-width: thin; /* толщина */
+
+        &::-webkit-scrollbar {
+            width: 6px; /* высота для горизонтального скролла */
+            height: 0px;
+            background-color: transparent;
+        }
+
+        /* ползунок скроллбара */
+        &::-webkit-scrollbar-thumb {
+            background-color: rgba($color: $unactive-color, $alpha: 0.8);
+            border-radius: 9em;
+        }
+
+        &-item {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-weight: 300;
+            color: $unactive-color;
+            font-size: 12px;
+
+            &:not(:first-child) {
+                margin-left: 20px;
+            }
+
+            &.active {
+                color: $textColor;
+
+                .list-item__content {
+                    border: 1px solid $textColor;
+                }
+            }
+
+            .list-item {
+                &__time {
+                    margin-bottom: 10px;
+                }
+
+                &__content {
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    background-color: rgba($color: #000000, $alpha: 0.25);
+                    border-radius: 20px;
+                    border: 1px solid $unactive-color;
+                    padding: 15px;
+
+                    .image-container {
+                        min-height: 28px;
+                        width: 27px;
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .mobile {
+        display: none;
+    }
+
+    .desktop {
+        display: block;
+        position: relative;
+        padding: 60px 0;
+        .listLongDate {
+            margin: 0 auto;
+            width: fit-content;
+        }
+        .daily-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            .navigation-buttons {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                white-space: nowrap;
+                .button-line + .button-line {
+                    margin-top: 20px;
+
+                    .button {
+                        max-width: 250px;
+                    }
+                }
+            }
+        }
+        .week-title,
+        .state-title {
+            font-weight: 700;
+            color: rgba($color: $unactive-color, $alpha: 0.8);
+            margin-bottom: 40px;
+            font-size: 32px;
+            pointer-events: none;
+        }
+        .week-forecast__items {
+            margin-bottom: 50px;
+            border-radius: 15px;
+            background-color: rgba($color: #000000, $alpha: 0.25);
+            overflow-y: auto;
+            scrollbar-color: rgba($color: $unactive-color, $alpha: 0.8)
+                transparent; /* «цвет ползунка» «цвет полосы скроллбара» */
+            scrollbar-width: thin; /* толщина */
+
+            &::-webkit-scrollbar {
+                height: 6px; /* высота для горизонтального скролла */
+                background-color: transparent;
+            }
+
+            /* ползунок скроллбара */
+            &::-webkit-scrollbar-thumb {
+                background-color: rgba($color: $unactive-color, $alpha: 0.8);
+                border-radius: 9em;
+            }
+            max-width: 100%;
+            display: flex;
+
+            .forecast-item {
+                cursor: pointer;
+                height: 100%;
+                padding: 30px 40px;
+                font-weight: 400;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                position: relative;
+                color: $unactive-color;
+
+                &.active {
+                    color: $textColor;
+
+                    .list-item__content {
+                        border: 1px solid $textColor;
+                    }
+                }
+
+                &:not(:last-child):after {
+                    content: "";
+                    display: inline-block;
+                    height: 60%;
+                    width: 2px;
+                    right: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    position: absolute;
+                    background-color: rgba(
+                        $color: $unactive-color,
+                        $alpha: 0.8
+                    );
+                    transition: 0.3s;
+                }
+
+                &__day {
+                    white-space: nowrap;
+                    font-size: 14px;
+                    text-align: center;
+                    margin-bottom: 15px;
+
+                    & span:first-child {
+                        font-size: 20px;
+                        font-weight: 500;
+                    }
+                }
+                .img-container {
+                    min-height: 45px;
+                    margin-bottom: 15px;
+                }
+                &__temperature {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 40px;
+                    flex-grow: 1;
+
+                    .temperature-mm {
+                        position: relative;
+                        font-weight: 400;
+                        padding: 7px 12px;
+
+                        .mm-image {
+                            position: absolute;
+                            bottom: 0;
+                            right: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .state {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+
+            &__image {
+                flex: 1 0 50%;
+                margin-right: 20px;
+
+                .state-title {
+                    font-size: 24px;
+                    margin-bottom: 25px;
+                }
+            }
+            &__details {
+                flex: 1 0 35%;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .state {
+                flex-direction: row;
+            }
+        }
+    }
+}

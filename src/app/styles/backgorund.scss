@@ -1,0 +1,16 @@
+.bg {
+    position: absolute;
+    z-index: 1;
+
+    min-height: 100vh;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: center center/ cover no-repeat
+            url(../../assets/image/mist/mist_state3.jpg),
+        rgba($color: #000000, $alpha: 0.25);
+    background-blend-mode: multiply;
+    background-attachment: fixed;
+    filter: blur(5px);
+}

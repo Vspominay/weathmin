@@ -1,5 +1,5 @@
 import { GetIconService } from './../../services/get-icon.service';
-import { currentWeather } from './../../models/currentWeather';
+import { CurrentWeather } from './../../models/currentWeather';
 import { Timezone } from './../../models/timezone';
 import { WeatherState } from './../../models/weatherState';
 import { Wind } from './../../models/wind';
@@ -17,7 +17,7 @@ import { Component, OnInit, NgModule } from '@angular/core';
 
 export class CurrentWeatherComponent implements OnInit {
 
-    currentWeather: currentWeather | any =  {};
+    currentWeather: CurrentWeather | any =  {};
 
 
     constructor(private weatherService:WeatherService,
@@ -47,7 +47,7 @@ export class CurrentWeatherComponent implements OnInit {
         }
 
         this.storage.$currentDay
-            .subscribe((weather: currentWeather | any) => {
+            .subscribe((weather: CurrentWeather | any) => {
                 if (weather.city) {
                     this.currentWeather = weather;                    
                 }
