@@ -5,7 +5,7 @@ import { Wind } from './wind';
 export interface CurrentWeather {
     city:string,
     time:Timezone,
-    degree?:number,
+    temp?:number,
     humidity:number,
     pressure:number,
     wind:Wind,

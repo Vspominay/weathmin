@@ -1,4 +1,4 @@
-<div class="current" *ngIf="currentWeather.city">
+<div class="current" *ngIf="currentWeather?.city">
     <div class="current__inner">
         <div class="current__wrap-city-date">
             <div class="current-city">
@@ -23,7 +23,12 @@
             <p>{{ currentWeather?.desc?.description }}</p>
         </div>
         <div class="current-degree">
-            <h2>{{ currentWeather.degree + "°" }}</h2>
+            <h2 *ngIf="!currentWeather?.temp.day">
+                {{ currentWeather.temp + "°" }}
+            </h2>
+            <h2 *ngIf="currentWeather?.temp.day">
+                {{ currentWeather.temp.day + "°" }}
+            </h2>
         </div>
     </div>
 </div>

@@ -27,6 +27,7 @@
     z-index: 2;
     position: relative;
     &__content {
+        margin: 0 auto;
         display: flex;
         flex-direction: column;
         padding: 25px 0;
@@ -45,7 +46,6 @@
 
 .hourly__content {
     max-width: 360px;
-    margin: 0 auto;
 
     &-soon {
         display: flex;

@@ -5,7 +5,7 @@ import { WeatherState } from './../../models/weatherState';
 import { Wind } from './../../models/wind';
 import { StorageService } from '../../services/storage.service';
 import { WeatherService } from './../../services/weather.service';
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit, NgModule, Input } from '@angular/core';
 
 
 
@@ -17,6 +17,7 @@ import { Component, OnInit, NgModule } from '@angular/core';
 
 export class CurrentWeatherComponent implements OnInit {
 
+    @Input()
     currentWeather: CurrentWeather | any =  {};
 
 
@@ -49,7 +50,7 @@ export class CurrentWeatherComponent implements OnInit {
         this.storage.$currentDay
             .subscribe((weather: CurrentWeather | any) => {
                 if (weather.city) {
-                    this.currentWeather = weather;                    
+                    this.currentWeather = weather;                                        
                 }
             });
     }

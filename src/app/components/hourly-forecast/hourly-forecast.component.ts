@@ -38,7 +38,7 @@ export class HourlyForecastComponent implements OnInit {
                 
                 if (hours.day == this.todayDay || hours.day == this.todayDay + 1) {
                     this.displayDay = hours.forecast;
-                    this.activeTime = this.displayDay[0];                     
+                    this.activeTime = this.displayDay[0];                                         
                 }
                 else{
                     this.displayDay = hours.forecast;

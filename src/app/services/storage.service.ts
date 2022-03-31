@@ -54,7 +54,7 @@ export class StorageService {
 
         const currentDay: CurrentWeather = {
             city,time,
-            degree: Math.round(degree),humidity,
+            temp: Math.round(degree),humidity,
             pressure: Math.round(pressure / 1.333),
             wind,probability,
             sunrise,sunset,
