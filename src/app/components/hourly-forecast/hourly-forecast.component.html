@@ -22,18 +22,20 @@
                         <div class="">
                             <span
                                 class="soon-text"
-                                [class.active]="todayDay == dayByUrl"
+                                [class.active]="todayMs == dayByUrl"
                                 routerLink="/hourly/{{ todayMs }}"
-                                (click)="setDay(todayDay)"
+                                (click)="setDay(todayMs)"
                                 >Today</span
                             >
                             <span
                                 class="soon-text"
-                                [class.active]="todayDay + 1 == dayByUrl"
+                                [class.active]="
+                                    todayMs + 24 * 60 * 60 * 1000 == dayByUrl
+                                "
                                 routerLink="/hourly/{{
                                     todayMs + 24 * 60 * 60 * 1000
                                 }}"
-                                (click)="setDay(todayDay + 1)"
+                                (click)="setDay(todayMs + 24 * 60 * 60 * 1000)"
                                 >Tomorrow</span
                             >
                         </div>
@@ -72,7 +74,7 @@
 
                     <ul
                         class="hourly__list listLongDate"
-                        *ngIf="dayByUrl != todayDay && dayByUrl != todayDay + 1"
+                        *ngIf="checkNextDay(todayMs, dayByUrl)"
                     >
                         <li class="hourly__list-item active">
                             <span class="list-item__time"> morning </span>
@@ -223,7 +225,7 @@
 
                 <ul
                     class="week-forecast__items listLongDate"
-                    *ngIf="dayByUrl != todayDay && dayByUrl != todayDay + 1"
+                    *ngIf="checkNextDay(todayMs, dayByUrl)"
                 >
                     <li class="forecast-item">
                         <div class="forecast-item__day">morning</div>

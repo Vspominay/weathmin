@@ -32,7 +32,7 @@ export class StorageService {
 
 
     setData(weather: CurrentWeather | any, city: string) {
-        
+                
         this.setWeekForecast(weather, city);
         this.setCurrentData(weather, city);
         this.setHourlyData(weather, city);    
@@ -79,22 +79,33 @@ export class StorageService {
             throw new Error("not enough hours");
         }
 
-        let today = new Date().getDate();
+        let today = Number(new Date());
 
         allHours.forEach((element: any) => {
-            let day = new Date(element.dt * 1000).getDate();
+            let day = Number(new Date(element.dt * 1000));
 
-            switch (day) {
-                case  today:
-                    days.today.push(element);
-                    break;
-                case  today + 1:
-                    days.tomorrow.push(element);
-                    break;
-                default:
-                    days.other.push(element);
-                    break;
-            } 
+            // switch (day) {
+            //     case  today:
+            //         days.today.push(element);
+            //         break;
+            //     case  this.checkNextDay(today,day):
+            //         days.tomorrow.push(element);
+            //         break;
+            //     default:
+            //         days.other.push(element);
+            //         break;
+            // } 
+
+
+            if (new Date(day).getDate() == new Date(today).getDate()) {
+                days.today.push(element);
+            }
+            else if(this.checkNextDay(today, day)){
+                days.tomorrow.push(element);
+            }
+            else{
+                days.other.push(element);
+            }
         });
                 
         let outputHours = {
@@ -205,29 +216,36 @@ export class StorageService {
         return !!localStorage.getItem('lat') && !!localStorage.getItem('lon');
     }
 
+    checkNextDay(today: number, tomorrow: number){
+ 
+        var oneday = 1 * 24 * 3600 * 1000; 
+        return new Date(today + oneday).getDate() === new Date(tomorrow).getDate()
+    }
+
     getHourlyForecastByDay(day:number){
-        
-        console.log(day);
-        
+            
 
         this.hourlyInformation
                 .subscribe((hours: any) => {
                     if (Object.keys(hours).length) {
-                        let today = new Date().getDate();
-                        if (day == today) {
+                        
+                        let today = Number(new Date(new Date().toDateString()));
+                        let currDay = Number(new Date(new Date(day).toDateString()));
+
+                        if (currDay == today) {                            
                             this.ouptuthours.next({day, forecast: hours.today});
                         }
-                        else if(day == today + 1){
+                        else if(this.checkNextDay(today, day)){                                                        
                             this.ouptuthours.next({day, forecast: hours.tomorrow});
                         }
-                        else{
+                        else{                            
                             this.$weekInformation.subscribe(
                                 (week: Daily[]) => {
                                     for (const dayItem of week) {
                                         
-                                        let dayDate = new Date(+dayItem.time.dt).getDate();
- 
-                                        if (dayDate == day) {
+                                        let dayDate = new Date(+dayItem.time.dt).getDate();                                        
+
+                                        if (dayDate == new Date(day).getDay()) {
                                             this.ouptuthours.next({day, forecast: dayItem});
                                         }
                                     }                                    
@@ -236,7 +254,9 @@ export class StorageService {
                         }
                     }                    
                 });
-        
+    }
 
+    transformFormat(timeMs: number){
+        return new Date(new Date(timeMs).toDateString()).getTime();
     }
 }

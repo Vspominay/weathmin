@@ -15,7 +15,7 @@ export class HourlyForecastComponent implements OnInit {
 
     storageDate: any = {};
 
-    private today = new Date();
+    today = new Date(this.storage.transformFormat(Number(new Date())));
     todayDay = this.today.getDate();
     todayMs = this.today.getTime();
     dayByUrl: number = 0;
@@ -28,17 +28,20 @@ export class HourlyForecastComponent implements OnInit {
 
     ngOnInit(): void {
 
-    this.dayByUrl = this.getDayByUrl();
+    this.dayByUrl = this.storage.transformFormat(Number(this.getDayByUrl()));
     this.storage.getHourlyForecastByDay(this.dayByUrl);
+    
 
     this.storage.$ouptuthours
         .subscribe((hours: any) => {
-
+            
             if (Object.keys(hours).length) {
+
+
+                if (new Date(hours.day).getDate() == new Date(this.todayMs).getDate() || this.storage.checkNextDay(Number(this.todayMs),this.dayByUrl)) {
                 
-                if (hours.day == this.todayDay || hours.day == this.todayDay + 1) {
                     this.displayDay = hours.forecast;
-                    this.activeTime = this.displayDay[0];                                         
+                    this.activeTime = this.displayDay[0];                                  
                 }
                 else{
                     this.displayDay = hours.forecast;
@@ -53,12 +56,18 @@ export class HourlyForecastComponent implements OnInit {
         this.activeTime = hour;
     }
     
-    setDay(day: number){
+    setDay(day: number){        
         this.storage.getHourlyForecastByDay(day);
         this.dayByUrl = day;
     }
 
     getDayByUrl(){
-        return new Date(Number(this.route.snapshot.paramMap.get("time"))).getDate();        
+        return new Date(Number(this.route.snapshot.paramMap.get("time")));        
+    }
+
+    checkNextDay(today: number, tomorrow:number){
+        let nextDay = !this.storage.checkNextDay(today, tomorrow);
+        let sameDay = new Date(this.dayByUrl).getDate() != new Date(this.todayMs).getDate();
+        return sameDay && nextDay;
     }
 }
