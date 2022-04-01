@@ -1,3 +1,4 @@
+import { GetBackgroundService } from './../../services/get-background.service';
 import { Daily } from './../../models/daily';
 import { StorageService } from './../../services/storage.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -23,7 +24,8 @@ export class HourlyForecastComponent implements OnInit {
 
     constructor(
         private storage: StorageService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private bg: GetBackgroundService
     ) { }
 
     ngOnInit(): void {
@@ -33,15 +35,17 @@ export class HourlyForecastComponent implements OnInit {
     
 
     this.storage.$ouptuthours
-        .subscribe((hours: any) => {
-            
+        .subscribe((hours: any) => {            
             if (Object.keys(hours).length) {
 
+                console.log(hours);
+                
 
-                if (new Date(hours.day).getDate() == new Date(this.todayMs).getDate() || this.storage.checkNextDay(Number(this.todayMs),this.dayByUrl)) {
+                if (new Date(hours.day).getDate() == new Date(this.todayMs).getDate() || 
+                    this.storage.checkNextDay(Number(this.todayMs),hours.day)) {
                 
                     this.displayDay = hours.forecast;
-                    this.activeTime = this.displayDay[0];                                  
+                    this.activeTime = this.displayDay[0];                                                      
                 }
                 else{
                     this.displayDay = hours.forecast;
@@ -50,6 +54,13 @@ export class HourlyForecastComponent implements OnInit {
 
             }     
         })
+
+        this.bg.$imageBg
+            .subscribe(res => {
+                if (res.length) {
+                    this.bg.backgroundsSet();                   
+                }
+            })
     }
 
     setActiveTime(hour: Daily){

@@ -1,3 +1,4 @@
+import { GetBackgroundService } from './../../services/get-background.service';
 import { GetIconService } from './../../services/get-icon.service';
 import { CurrentWeather } from './../../models/currentWeather';
 import { Timezone } from './../../models/timezone';
@@ -23,7 +24,7 @@ export class CurrentWeatherComponent implements OnInit {
 
     constructor(private weatherService:WeatherService,
         private storage:StorageService,
-        private icons: GetIconService) { }
+        private bg: GetBackgroundService) { }
 
     ngOnInit(): void {
         const locationExist = this.storage.locationExist();
@@ -50,7 +51,7 @@ export class CurrentWeatherComponent implements OnInit {
         this.storage.$currentDay
             .subscribe((weather: CurrentWeather | any) => {
                 if (weather.city) {
-                    this.currentWeather = weather;                                        
+                    this.currentWeather = weather;  
                 }
             });
     }

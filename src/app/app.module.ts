@@ -12,6 +12,7 @@ import { CurrentWeatherComponent } from './components/current-weather/current-we
 import { InfoBarComponent } from './components/info-bar/info-bar.component';
 import { HourlyForecastComponent } from './components/hourly-forecast/hourly-forecast.component';
 import { DetailWeatherComponent } from './components/detail-weather/detail-weather.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { DetailWeatherComponent } from './components/detail-weather/detail-weath
     InfoBarComponent,
     DailyForecastComponent,
     HourlyForecastComponent,
-    DetailWeatherComponent
+    DetailWeatherComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

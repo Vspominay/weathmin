@@ -17,6 +17,8 @@ export class StorageService {
 
     location = {};
 
+    $currentDayStatus: BehaviorSubject<string> = new BehaviorSubject("");
+
     private currentDay: BehaviorSubject<CurrentWeather | {}> = new BehaviorSubject({});
     $currentDay:Observable<CurrentWeather | {}> = this.currentDay.asObservable();
 
@@ -64,6 +66,9 @@ export class StorageService {
 
 
         this.currentDay.next(currentDay);
+        if (!this.$currentDayStatus.getValue().length) {            
+            this.$currentDayStatus.next(weathDescription.main)            
+        }
     }
 
     setHourlyData(weather: CurrentWeather | any, city: string){
@@ -224,7 +229,7 @@ export class StorageService {
 
     getHourlyForecastByDay(day:number){
             
-
+        
         this.hourlyInformation
                 .subscribe((hours: any) => {
                     if (Object.keys(hours).length) {
@@ -235,17 +240,19 @@ export class StorageService {
                         if (currDay == today) {                            
                             this.ouptuthours.next({day, forecast: hours.today});
                         }
-                        else if(this.checkNextDay(today, day)){                                                        
+                        else if(this.checkNextDay(today, day)){                                                                                    
                             this.ouptuthours.next({day, forecast: hours.tomorrow});
                         }
                         else{                            
                             this.$weekInformation.subscribe(
                                 (week: Daily[]) => {
+
+                                    console.log(week);
+                                    
                                     for (const dayItem of week) {
-                                        
                                         let dayDate = new Date(+dayItem.time.dt).getDate();                                        
 
-                                        if (dayDate == new Date(day).getDay()) {
+                                        if (dayDate == new Date(day).getDate()) {                                            
                                             this.ouptuthours.next({day, forecast: dayItem});
                                         }
                                     }                                    

@@ -50,7 +50,7 @@
     flex-direction: column;
 
     .week-title {
-        color: rgba($color: $unactive-color, $alpha: 0.8);
+        color: rgba($color: $textColor, $alpha: 0.8);
         pointer-events: none;
         font-size: 20px;
         font-weight: bold;
@@ -109,7 +109,7 @@
         }
         .week-title {
             font-weight: 700;
-            color: rgba($color: $unactive-color, $alpha: 0.8);
+            color: rgba($color: $textColor, $alpha: 0.8);
             margin-bottom: 40px;
             font-size: 32px;
             pointer-events: none;
