@@ -22,25 +22,26 @@ export class GetBackgroundService {
                 if (weather.length) {
                     let weathMain:string = weather;
                     
+        let state = this.getRandomState(1,3);
+
         switch (weathMain.toLowerCase()) {
-            
-            case "clouds":                        
-              this.imageBg.next(`${imageSrc}few_clouds/few_clouds_state1.jpg`)
+            case "clouds":
+              this.imageBg.next(`${imageSrc}few_clouds/few_clouds_state${state}.jpg`)
                 break;
             case "clear":
-                this.imageBg.next(`${imageSrc}clear_sky/clear_sky_state2.png`)  
+                this.imageBg.next(`${imageSrc}clear_sky/clear_sky_state${state}.jpg`)  
                 break;
             case "snow":
-                this.imageBg.next(`${imageSrc}snow/snow_state1.png`) 
+                this.imageBg.next(`${imageSrc}snow/snow_state1.jpg`) 
                 break;
             case "rain":
-                this.imageBg.next(`${imageSrc}rain/rain_state3.png`)
+                this.imageBg.next(`${imageSrc}rain/rain_state${state}.jpg`)
                 break;
             case "drizzle":
                 this.imageBg.next(`${imageSrc}rain/drizzle_state1.jpg`)  
                 break;
             case "thunderstorm":
-                this.imageBg.next(`${imageSrc}rain/thunderstorm_state3.jpg`) 
+                this.imageBg.next(`${imageSrc}thunderstorm/thunderstorm_state${state}.jpg`) 
                 break;
             case "atmosphere":
                 this.imageBg.next(`${imageSrc}mist/mist_state3.jpg`) 
@@ -63,19 +64,11 @@ export class GetBackgroundService {
             `;
         }
     }
+
+    getRandomState(min:number, max:number){
+        let rand = min - 0.5 + Math.random() * (max - min + 1);
+        return Math.round(rand);
+    }
 };
-// setBackGround(path:string){
-//     let wrapper = document.querySelector('.wrapper') as HTMLElement;    
-//     let blurBg = document.querySelector('.bg') as HTMLElement;
 
-//     if (blurBg) {                
-//         blurBg.style.background = `center center/ cover no-repeat url(../../assets/image/few_clouds/few_clouds_state1.jpg), rgba(0, 0, 0, 0.25)`;        
-//     }
-
-//     if (wrapper) {
-//         wrapper.style.background = `center center/cover no-repeat url(${path}), rgba(0, 0, 0, 0.25)`;
-//     }
-
-    
-// }   
 
