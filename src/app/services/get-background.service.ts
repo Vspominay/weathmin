@@ -10,7 +10,7 @@ export class GetBackgroundService {
 
 
     private imageBg: BehaviorSubject<string> = new BehaviorSubject( "");
-    $imageBg:Observable<any> = this.imageBg.asObservable();
+    $imageBg:Observable<string> = this.imageBg.asObservable();
 
     constructor(private storage:StorageService) { }
 

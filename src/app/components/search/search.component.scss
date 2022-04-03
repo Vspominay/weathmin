@@ -40,7 +40,19 @@
     }
     .input-block{
         display: flex;
-        align-items: start;
+        align-items: flex-start;
+
+        &__relative{
+            position: relative;
+
+            .icon-search{
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: 35px;
+                transition: .3s;
+            }
+        }
         .icon-arrow{
             color: rgba($color: $textColor, $alpha: .8);
             font-size: 22px;
@@ -52,6 +64,7 @@
             }
         }
     }
+
     &-input{
         margin-right: 25px;
         max-width: 230px;
@@ -67,11 +80,11 @@
         &:focus{
             border-bottom: 1px solid rgba($color: $textColor, $alpha: .8);
             color: rgba($color: $textColor, $alpha: .8);
-
-            ::placeholder{
-                color: rgba($color: $textColor, $alpha: .8);
-            }
         }
+        &:focus + .icon-search{
+            color: rgba($color: $textColor, $alpha: .8);
+        }
+
         &::placeholder{
             color: $unactive-color;
         }

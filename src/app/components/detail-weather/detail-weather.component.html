@@ -2,6 +2,16 @@
     <span class="current-title"> Weather Details </span>
 
     <div class="current-items">
+        <div class="current-item" *ngIf="!currentWeather?.feels_like?.day">
+            <span>Feels like</span>
+            <span>{{ currentWeather?.feels_like + " °" }}</span>
+        </div>
+
+        <div class="current-item" *ngIf="currentWeather?.feels_like?.day">
+            <span>Feels like</span>
+            <span>{{ currentWeather?.feels_like?.day + " °" }}</span>
+        </div>
+
         <div class="current-item">
             <span>Humidity</span>
             <span>{{ currentWeather?.humidity + " %" }}</span>

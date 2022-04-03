@@ -35,9 +35,17 @@ export class InfoBarComponent implements OnInit {
 
         this.storage.$weekInformation
         .subscribe((weekWeather: any | Daily[]) => {                
-            if (weekWeather.length) {
+            if (weekWeather.length) {                
                 this.week = weekWeather.slice(1,4);
-                this.currentWeather.probability =  weekWeather[0].probability * 100;   
+
+                this.storage.$hourlyInformation
+                    .subscribe((hours:any) => {
+                        if (hours.today) {
+                            console.log(hours);
+                            
+                            this.currentWeather.probability =  hours.today[0].probability;                            
+                        }
+                    })
             }
         })
     

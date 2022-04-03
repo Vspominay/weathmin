@@ -1,3 +1,4 @@
+import { metricControl } from './metric-control';
 import { GetIconService } from './get-icon.service';
 import { Temperature } from './../models/temperature';
 import { Daily } from './../models/daily';
@@ -7,6 +8,7 @@ import { CurrentWeather } from '../models/currentWeather';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Wind } from '../models/wind';
+
 
 @Injectable({
   providedIn: 'root'
@@ -41,10 +43,12 @@ export class StorageService {
     }
 
     setCurrentData(weather: CurrentWeather | any, city: string){
+        console.log(weather);
+        
         let {timezone, timezone_offset} = weather;
         let {   
                 dt: currentTime, wind_speed: speed, wind_gust: gust, wind_deg: deg,
-                temp: degree, humidity, pressure, probability, sunrise, sunset,
+                temp: degree, humidity, pressure, probability, sunrise, sunset,feels_like
             } = weather.current;
         let {main, description, icon} = weather.current.weather[0];
 
@@ -56,12 +60,15 @@ export class StorageService {
 
         const currentDay: CurrentWeather = {
             city,time,
-            temp: Math.round(degree),humidity,
-            pressure: Math.round(pressure / 1.333),
-            wind,probability,
+            temp: metricControl.temperature(degree),
+            humidity,
+            pressure: metricControl.pressure(pressure),
+            wind,
+            probability: metricControl.probability(probability),
             sunrise,sunset,
             desc: weathDescription,
-            image
+            image,
+            feels_like: metricControl.temperature(feels_like)
         }
 
 
@@ -88,19 +95,6 @@ export class StorageService {
 
         allHours.forEach((element: any) => {
             let day = Number(new Date(element.dt * 1000));
-
-            // switch (day) {
-            //     case  today:
-            //         days.today.push(element);
-            //         break;
-            //     case  this.checkNextDay(today,day):
-            //         days.tomorrow.push(element);
-            //         break;
-            //     default:
-            //         days.other.push(element);
-            //         break;
-            // } 
-
 
             if (new Date(day).getDate() == new Date(today).getDate()) {
                 days.today.push(element);
@@ -162,10 +156,11 @@ export class StorageService {
         } = dayItem;
                 
         let {day, min, max, morn: morning, eve: evening, night} = dayItem.temp;// get temperature data
+        let {day: flday, morn: flmorn, eve: fleve, night: flnight} = dayItem.feels_like;// get temperature data
 
         let wind:Wind = {speed, gust, deg}
 
-        let temp;
+        let temp, feels_like;
 
         if (option == "week") {
             let temperature: Temperature = {
@@ -176,33 +171,45 @@ export class StorageService {
                 evening: Math.round(evening),
                 night: Math.round(night)
             }
-            temp = temperature;            
+            temp = temperature;    
+            
+            let fl: Temperature = {
+                day: Math.round(flday),
+                evening: Math.round(fleve),
+                morning: Math.round(flmorn),
+                night: Math.round(flnight),
+            }
+            feels_like = fl;
         }
         else if(option == "hours"){            
             let temperature =  dayItem.temp;
-            temp = Math.round(temperature);
+            temp = metricControl.temperature(temperature);
+            
+            let fl = dayItem.feels_like;
+            feels_like = metricControl.temperature(fl);
         }
 
         let time:Timezone = {timezone: inputTime.timezone,timezone_offset: inputTime.timezone_offset, dt: (currentTime * 1000) + ""}
 
         let {main, description} = dayItem.weather[0];
         let image = this.icons.getIcon(main, description);
-
+        
 
         let DayData:Daily = {
             city,
             time,
             humidity,
-            pressure: Math.round(pressure / 1.333),
+            pressure: metricControl.pressure(pressure),
             wind,
-            probability,
+            probability: metricControl.probability(probability),
             rain,
             clouds,
             sunrise,
             sunset,
             temp,
             image,
-            desc: description
+            desc: description,
+            feels_like
         };
 
         return DayData;

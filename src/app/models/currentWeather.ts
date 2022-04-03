@@ -14,6 +14,7 @@ export interface CurrentWeather {
     state_img?:string,
     probability?:number,
     desc?: WeatherState,
-    image?: string
+    image?: string,
+    feels_like?:number
 
 }

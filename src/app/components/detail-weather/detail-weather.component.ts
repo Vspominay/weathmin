@@ -16,7 +16,7 @@ export class DetailWeatherComponent implements OnInit {
 
     constructor() { }
 
-    ngOnInit(): void {
+    ngOnInit(): void {        
     }
 
 }

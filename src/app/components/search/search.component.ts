@@ -1,8 +1,10 @@
+import { defaultCities } from './defaultCities';
 import { StorageService } from './../../services/storage.service';
 import { WeatherService } from './../../services/weather.service';
 import { SearchService } from './../../services/search.service';
 import { Component, OnInit } from '@angular/core';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+
 
 @Component({
   selector: 'app-search',
@@ -11,7 +13,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 })
 export class SearchComponent implements OnInit {
 
-    cities: any = [];
+    cities = defaultCities;
     isShowList = false;
     valueInput: string = "";
 
@@ -25,9 +27,13 @@ export class SearchComponent implements OnInit {
             debounceTime(300),
             distinctUntilChanged(),
             switchMap((term: string):any => this.searchService.searchCities(term))
-          ).subscribe((pass: any) => {                         
-                this.cities = pass.features;        
-                        
+          ).subscribe((pass: any) => {   
+              console.log(pass);
+                                    
+                this.cities = pass.features;   
+                
+                console.log(pass.features);
+                
         });
     }
 
@@ -36,7 +42,7 @@ export class SearchComponent implements OnInit {
         this.searchService.searchText.next(term);
     }
 
-    setLocation(coordinates: any[]){
+    setLocation(coordinates: number[]){
         let [lon, lat] = coordinates;
 
         this.storage.storeLocation(lat, lon);
