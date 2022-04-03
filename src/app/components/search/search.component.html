@@ -1,0 +1,29 @@
+<div class="search">
+    <div class="search__inner">
+        <div class="input-block">
+            <input
+                type="text"
+                class="search-input"
+                #cityName
+                (keyup)="search(cityName.value)"
+                placeholder="City name..."
+                [(ngModel)]="valueInput"
+            />
+
+            <span
+                [class.show]="isShowList"
+                (click)="showList()"
+                class="icon-arrow"
+            ></span>
+        </div>
+
+        <ul class="search-list" [class.mobileShowList]="isShowList">
+            <li class="search-list__item" *ngFor="let city of cities">
+                <p (click)="setLocation(city.geometry.coordinates)">
+                    {{ city.properties.name }}
+                    <!-- {{ city }} -->
+                </p>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -36,11 +36,7 @@ export class HourlyForecastComponent implements OnInit {
 
     this.storage.$ouptuthours
         .subscribe((hours: any) => {            
-            if (Object.keys(hours).length) {
-
-                console.log(hours);
-                
-
+            if (Object.keys(hours).length) {                
                 if (new Date(hours.day).getDate() == new Date(this.todayMs).getDate() || 
                     this.storage.checkNextDay(Number(this.todayMs),hours.day)) {
                 

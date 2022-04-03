@@ -1,0 +1,111 @@
+@import "../../styles/colors.scss";
+
+@keyframes showItem{
+    0%{
+        opacity: 0;
+        visibility: hidden;
+        transition: 1s;
+        transform: translateY(-100%);
+    }
+
+    100%{
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+.search{
+    color: $unactive-color;
+    font-weight: 300px;
+    padding-bottom: 30px;
+    height: fit-content;
+    overflow: hidden;
+
+    &-list{
+        // display: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: 1s;
+        transform: translateY(-100%);
+        height: 0;
+
+        &.mobileShowList{
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            height: auto;
+            // display: block;
+        }
+    }
+    .input-block{
+        display: flex;
+        align-items: start;
+        .icon-arrow{
+            color: rgba($color: $textColor, $alpha: .8);
+            font-size: 22px;
+            transform: rotate(-90deg);
+            transition: .2s;
+
+            &.show{
+                transform: rotate(90deg);
+            }
+        }
+    }
+    &-input{
+        margin-right: 25px;
+        max-width: 230px;
+        border: 0;
+        outline: none;
+        border-bottom: 1px solid $unactive-color;
+        font-size: 14px;
+        margin-bottom: 30px;
+        background-color: transparent;
+        color: $unactive-color;
+        transition: .3s;
+
+        &:focus{
+            border-bottom: 1px solid rgba($color: $textColor, $alpha: .8);
+            color: rgba($color: $textColor, $alpha: .8);
+
+            ::placeholder{
+                color: rgba($color: $textColor, $alpha: .8);
+            }
+        }
+        &::placeholder{
+            color: $unactive-color;
+        }
+    }
+
+    &-list__item{
+        cursor: pointer;
+        transition: .2s;
+        animation: showItem;
+        animation-duration: .2s;
+        animation-fill-mode: forwards;
+
+        &:hover{
+            color: rgba($color: $textColor, $alpha: .8);
+        }
+        & + &{
+        margin-top: 15px;
+        }
+    }
+
+}
+
+@media (min-width: 768px){
+    .search{
+        &-list{
+            display: block;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            height: auto;
+        }
+
+        .icon-arrow{
+            display: none;
+        }
+    }
+}

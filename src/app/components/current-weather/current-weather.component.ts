@@ -33,7 +33,7 @@ export class CurrentWeatherComponent implements OnInit {
             const lat = Number(localStorage.getItem('lat'));
             const lon = Number(localStorage.getItem('lon'));
 
-            this.getWeather(lat, lon);
+            this.weatherService.getWeather(lat, lon);
         }
         else{            
             navigator.geolocation.getCurrentPosition((success) =>{
@@ -41,7 +41,7 @@ export class CurrentWeatherComponent implements OnInit {
                 const lon  = success.coords.longitude;
                 this.storage.storeLocation(lat, lon);
 
-                this.getWeather(lat, lon);
+                this.weatherService.getWeather(lat, lon);
             },
             (err) => {
                 console.warn(err);
@@ -57,20 +57,4 @@ export class CurrentWeatherComponent implements OnInit {
     }
 
     
-    getWeather(lat: number, lon:number){
-        this.weatherService.getCurrentWeather(lat, lon)
-                    .subscribe((weather: any) => {
-            this.weatherService.getCityByCoordinate(lat, lon)
-                .subscribe((city: any) => {
-                    const cityName = city[0].name;
-                    if (weather) {
-                        this.storage.setData(weather, cityName);
-                    }
-                    else{
-                        console.warn(weather);
-                    }
-                }
-            );
-        });
-    }
 }

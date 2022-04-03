@@ -13,6 +13,7 @@ import { InfoBarComponent } from './components/info-bar/info-bar.component';
 import { HourlyForecastComponent } from './components/hourly-forecast/hourly-forecast.component';
 import { DetailWeatherComponent } from './components/detail-weather/detail-weather.component';
 import { SearchComponent } from './components/search/search.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SearchComponent } from './components/search/search.component';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    CurrentModule
+    CurrentModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -210,7 +210,6 @@ export class StorageService {
 
 
     storeLocation(lat: number, lon: number){
-        console.log('logcalstorage');
         
         localStorage.setItem('lat', lat + "");
         localStorage.setItem('lon', lon + "");
