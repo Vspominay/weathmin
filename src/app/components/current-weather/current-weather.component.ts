@@ -1,14 +1,8 @@
-import { GetBackgroundService } from './../../services/get-background.service';
-import { GetIconService } from './../../services/get-icon.service';
+import { LoaderService } from './../../services/loader.service';
 import { CurrentWeather } from './../../models/currentWeather';
-import { Timezone } from './../../models/timezone';
-import { WeatherState } from './../../models/weatherState';
-import { Wind } from './../../models/wind';
 import { StorageService } from '../../services/storage.service';
 import { WeatherService } from './../../services/weather.service';
-import { Component, OnInit, NgModule, Input } from '@angular/core';
-
-
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-current-weather',
@@ -24,7 +18,7 @@ export class CurrentWeatherComponent implements OnInit {
 
     constructor(private weatherService:WeatherService,
         private storage:StorageService,
-        private bg: GetBackgroundService) { }
+        private loader: LoaderService) { }
 
     ngOnInit(): void {
         const locationExist = this.storage.locationExist();
@@ -34,6 +28,8 @@ export class CurrentWeatherComponent implements OnInit {
             const lon = Number(localStorage.getItem('lon'));
 
             this.weatherService.getWeather(lat, lon);
+            this.loader.locationIsAllowed$.next(true);
+
         }
         else{            
             navigator.geolocation.getCurrentPosition((success) =>{
@@ -42,9 +38,11 @@ export class CurrentWeatherComponent implements OnInit {
                 this.storage.storeLocation(lat, lon);
 
                 this.weatherService.getWeather(lat, lon);
+                this.loader.locationIsAllowed$.next(true);
+
             },
             (err) => {
-                console.warn(err);
+                this.loader.locationIsAllowed$.next(false);
             })
         }
 

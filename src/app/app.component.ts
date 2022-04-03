@@ -1,3 +1,4 @@
+import { LoaderService } from './services/loader.service';
 import { GetBackgroundService } from './services/get-background.service';
 import { slider } from './animations/routing-animations';
 import { Component } from '@angular/core';
@@ -13,7 +14,11 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
 
-    constructor(private bg: GetBackgroundService){}
+    constructor(private bg: GetBackgroundService,
+        private loader: LoaderService){}
+
+    applicationIsReady: boolean = false;
+        
 
     prepareRoute(outlet: RouterOutlet){
         return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation']
@@ -27,6 +32,9 @@ export class AppComponent {
                     this.bg.backgroundsSet();                   
                 }
             })
+
+        this.loader.applicationReady$   
+            .subscribe((state: boolean) => this.applicationIsReady = state);
         
     }
 }

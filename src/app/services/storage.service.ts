@@ -1,3 +1,4 @@
+import { LoaderService } from './loader.service';
 import { metricControl } from './metric-control';
 import { GetIconService } from './get-icon.service';
 import { Temperature } from './../models/temperature';
@@ -15,7 +16,8 @@ import { Wind } from '../models/wind';
 })
 export class StorageService {
 
-    constructor(private icons: GetIconService) { }
+    constructor(private icons: GetIconService,
+        private loader: LoaderService) { }
 
     location = {};
 
@@ -37,9 +39,16 @@ export class StorageService {
 
     setData(weather: CurrentWeather | any, city: string) {
                 
-        this.setWeekForecast(weather, city);
-        this.setCurrentData(weather, city);
-        this.setHourlyData(weather, city);    
+        try {
+            this.setWeekForecast(weather, city);
+            this.setCurrentData(weather, city);
+            this.setHourlyData(weather, city);   
+            this.loader.applicationReady$.next(true);
+            
+        } catch (err) {
+            console.warn(err);
+        }
+
     }
 
     setCurrentData(weather: CurrentWeather | any, city: string){

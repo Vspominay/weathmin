@@ -20,7 +20,12 @@
                 width="64"
                 height="48"
             />
-            <p>{{ currentWeather?.desc?.description }}</p>
+            <p *ngIf="currentWeather?.desc?.description">
+                {{ currentWeather?.desc?.description }}
+            </p>
+            <p *ngIf="!currentWeather?.desc?.description">
+                {{ currentWeather?.desc }}
+            </p>
         </div>
         <div class="current-degree">
             <h2 *ngIf="!currentWeather?.temp.day">

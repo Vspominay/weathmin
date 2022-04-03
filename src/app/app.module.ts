@@ -14,6 +14,7 @@ import { HourlyForecastComponent } from './components/hourly-forecast/hourly-for
 import { DetailWeatherComponent } from './components/detail-weather/detail-weather.component';
 import { SearchComponent } from './components/search/search.component';
 import { FormsModule } from '@angular/forms';
+import { PreloaderComponent } from './components/preloader/preloader.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FormsModule } from '@angular/forms';
     DailyForecastComponent,
     HourlyForecastComponent,
     DetailWeatherComponent,
-    SearchComponent
+    SearchComponent,
+    PreloaderComponent
   ],
   imports: [
     BrowserModule,
