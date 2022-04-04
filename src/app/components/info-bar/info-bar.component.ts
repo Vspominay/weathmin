@@ -41,7 +41,6 @@ export class InfoBarComponent implements OnInit {
                 this.storage.$hourlyInformation
                     .subscribe((hours:any) => {
                         if (hours.today) {
-                            console.log(hours);
                             
                             this.currentWeather.probability =  hours.today[0].probability;                            
                         }

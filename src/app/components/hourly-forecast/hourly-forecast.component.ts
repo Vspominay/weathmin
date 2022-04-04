@@ -47,7 +47,6 @@ export class HourlyForecastComponent implements OnInit {
 
                     this.displayDay = hours.forecast;
                     this.activeTime = hours.forecast;                     
-                    console.log(this.activeTime);
                     
                 }
 

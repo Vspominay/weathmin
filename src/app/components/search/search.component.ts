@@ -27,13 +27,8 @@ export class SearchComponent implements OnInit {
             debounceTime(300),
             distinctUntilChanged(),
             switchMap((term: string):any => this.searchService.searchCities(term))
-          ).subscribe((pass: any) => {   
-              console.log(pass);
-                                    
+          ).subscribe((pass: any) => {                                       
                 this.cities = pass.features;   
-                
-                console.log(pass.features);
-                
         });
     }
 

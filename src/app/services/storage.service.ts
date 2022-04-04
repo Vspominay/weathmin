@@ -52,7 +52,6 @@ export class StorageService {
     }
 
     setCurrentData(weather: CurrentWeather | any, city: string){
-        console.log(weather);
         
         let {timezone, timezone_offset} = weather;
         let {   
@@ -262,7 +261,6 @@ export class StorageService {
                             this.$weekInformation.subscribe(
                                 (week: Daily[]) => {
 
-                                    console.log(week);
                                     
                                     for (const dayItem of week) {
                                         let dayDate = new Date(+dayItem.time.dt).getDate();                                        
