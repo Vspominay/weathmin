@@ -1,6 +1,7 @@
 <div class="wrapper">
-    <app-preloader></app-preloader>
+    <div class="fixedBackgound"></div>
     <div class="full-width" [@routerAnimations]="prepareRoute(outlet)">
+        <app-preloader></app-preloader>
         <router-outlet #outlet="outlet"></router-outlet>
     </div>
 </div>

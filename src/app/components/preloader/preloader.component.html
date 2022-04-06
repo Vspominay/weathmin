@@ -1,4 +1,4 @@
-<div *ngIf="!applicationIsReady" class="preloader__page">
+<div *ngIf="!applicationIsReady && !imageIsReady" class="preloader__page">
     <div class="preloader" style="opacity: 1">
         <svg
             version="1.1"
@@ -103,12 +103,14 @@
         </div>
 
         <div class="text">get the weather in your city</div>
-        <div class="text error" *ngIf="isLocationBlocked">
-            For the application to work, allow serving the geolocation
-        </div>
-        <div class="text">OR</div>
-        <div class="text btn-block">
-            <a (click)="startApplication()" class="start-btn">Start now</a>
-        </div>
+        <ng-container *ngIf="isLocationBlocked">
+            <div class="text error">
+                For the application to work, allow serving the geolocation
+            </div>
+            <div class="text">OR</div>
+            <div class="text btn-block">
+                <a (click)="startApplication()" class="start-btn">Start now</a>
+            </div>
+        </ng-container>
     </div>
 </div>

@@ -1,5 +1,5 @@
+import { LoaderService } from './loader.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CurrentWeather } from './../models/currentWeather';
 import { StorageService } from './storage.service';
 import { Injectable } from '@angular/core';
 
@@ -12,7 +12,8 @@ export class GetBackgroundService {
     private imageBg: BehaviorSubject<string> = new BehaviorSubject( "");
     $imageBg:Observable<string> = this.imageBg.asObservable();
 
-    constructor(private storage:StorageService) { }
+    constructor(private storage:StorageService,
+        private loader: LoaderService) { }
 
     getBackground(){
         const imageSrc = "../assets/image/";
@@ -55,13 +56,21 @@ export class GetBackgroundService {
     }
 
     backgroundsSet(){
-        let wrapper = document.querySelector(`.wrapper`) as HTMLElement;
+        let backgorund = document.querySelector(`.fixedBackgound`) as HTMLElement;
         let path = this.imageBg.getValue();
+        
 
-        if (wrapper) {
-            wrapper.style.background = `
-            center center/cover no-repeat url(${path}), rgba(0, 0, 0, 0.25)
-            `;
+        if (backgorund) {
+            new Promise((res, rej)=>{
+
+                backgorund.style.backgroundImage = `url(${path})`;                
+                if (backgorund.style.backgroundImage) {
+                    res(true);
+                }
+            })
+                .then(res => {
+                    this.loader.imageReady$.next(true);
+                })
         }
     }
 

@@ -8,6 +8,7 @@ export class LoaderService {
 
     locationIsAllowed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     applicationReady$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    imageReady$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     
 
     constructor() { }

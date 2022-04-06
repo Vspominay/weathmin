@@ -14,11 +14,7 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
 
-    constructor(private bg: GetBackgroundService,
-        private loader: LoaderService){}
-
-    applicationIsReady: boolean = false;
-        
+    constructor(private bg: GetBackgroundService){}
 
     prepareRoute(outlet: RouterOutlet){
         return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation']
@@ -31,10 +27,6 @@ export class AppComponent {
                 if (res.length) {
                     this.bg.backgroundsSet();                   
                 }
-            })
-
-        this.loader.applicationReady$   
-            .subscribe((state: boolean) => this.applicationIsReady = state);
-        
+            })            
     }
 }

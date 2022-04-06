@@ -16,7 +16,11 @@ export class DetailWeatherComponent implements OnInit {
 
     constructor() { }
 
-    ngOnInit(): void {        
+    ngOnInit(): void {          
+    }
+
+    dayExist(obj: any):boolean{
+        return obj?.hasOwnProperty("day");
     }
 
 }

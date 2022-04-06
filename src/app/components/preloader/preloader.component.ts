@@ -12,7 +12,7 @@ export class PreloaderComponent implements OnInit {
 
     isLocationBlocked: boolean = false;
     applicationIsReady: boolean = false;
-
+    imageIsReady: boolean = false;
 
     constructor(private loader: LoaderService,
         private weatherService: WeatherService,
@@ -23,7 +23,10 @@ export class PreloaderComponent implements OnInit {
             .subscribe((isBlocked:boolean) => this.isLocationBlocked = !isBlocked);
 
         this.loader.applicationReady$   
-        .subscribe((state: boolean) => this.applicationIsReady = state);
+            .subscribe((state: boolean) => this.applicationIsReady = state);
+
+        this.loader.imageReady$   
+            .subscribe((state: boolean) => this.imageIsReady = state);
     }
 
     startApplication(){

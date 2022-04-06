@@ -43,8 +43,7 @@ export class StorageService {
             this.setWeekForecast(weather, city);
             this.setCurrentData(weather, city);
             this.setHourlyData(weather, city);   
-            this.loader.applicationReady$.next(true);
-            
+            this.loader.applicationReady$.next(true);            
         } catch (err) {
             console.warn(err);
         }

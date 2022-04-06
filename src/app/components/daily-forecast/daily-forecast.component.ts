@@ -19,7 +19,7 @@ export class DailyForecastComponent implements OnInit {
 
     ngOnInit(): void {
         this.storage.$weekInformation
-            .subscribe((week: any | Daily[]) => {                
+            .subscribe((week: any | Daily[]) => {                       
                 this.week = week;
             })
 

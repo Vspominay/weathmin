@@ -2,12 +2,12 @@ import { LoaderService } from './../../services/loader.service';
 import { CurrentWeather } from './../../models/currentWeather';
 import { StorageService } from '../../services/storage.service';
 import { WeatherService } from './../../services/weather.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-current-weather',
   templateUrl: './current-weather.component.html',
-  styleUrls: ['./current-weather.component.scss']
+  styleUrls: ['./current-weather.component.scss'],
 })
 
 export class CurrentWeatherComponent implements OnInit {
@@ -22,7 +22,7 @@ export class CurrentWeatherComponent implements OnInit {
 
     ngOnInit(): void {
         const locationExist = this.storage.locationExist();
-        
+                
         if (locationExist) {
             const lat = Number(localStorage.getItem('lat'));
             const lon = Number(localStorage.getItem('lon'));
@@ -52,7 +52,5 @@ export class CurrentWeatherComponent implements OnInit {
                     this.currentWeather = weather;  
                 }
             });
-    }
-
-    
+    }    
 }
