@@ -18,18 +18,19 @@ function slideTo(direction:string): any{
                 position: 'absolute',
                 top: 0,
                 [direction]: 0,
-                width: '100%'
+                width: '100%',
+                opacity: 1
             })
         ], optional),
         query(':enter',[
-            style({[direction] : '-100%'})
+            style({[direction] : '-100%', opacity: 0})
         ]),
         group([
             query(':leave', [
-                animate('600ms ease', style({[direction]: '100%'}))
+                animate('600ms ease', style({[direction]: '100%', opacity: 0}))
             ], optional),
             query(':enter', [
-                animate('600ms ease', style({[direction]: '0%'}))
+                animate('600ms ease', style({[direction]: '0%', opacity: 1}))
             ]),
         ])
     ]

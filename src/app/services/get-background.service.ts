@@ -55,25 +55,6 @@ export class GetBackgroundService {
         })
     }
 
-    backgroundsSet(){
-        let backgorund = document.querySelector(`.fixedBackgound`) as HTMLElement;
-        let path = this.imageBg.getValue();
-        
-
-        if (backgorund) {
-            new Promise((res, rej)=>{
-
-                backgorund.style.backgroundImage = `url(${path})`;                
-                if (backgorund.style.backgroundImage) {
-                    res(true);
-                }
-            })
-                .then(res => {
-                    this.loader.imageReady$.next(true);
-                })
-        }
-    }
-
     getRandomState(min:number, max:number){
         let rand = min - 0.5 + Math.random() * (max - min + 1);
         return Math.round(rand);

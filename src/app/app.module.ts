@@ -14,6 +14,7 @@ import { DetailWeatherComponent } from './components/detail-weather/detail-weath
 import { SearchComponent } from './components/search/search.component';
 import { FormsModule } from '@angular/forms';
 import { PreloaderComponent } from './components/preloader/preloader.component';
+import { BcChangerDirective } from './directives/bc-changer.directive';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PreloaderComponent } from './components/preloader/preloader.component';
     HourlyForecastComponent,
     DetailWeatherComponent,
     SearchComponent,
-    PreloaderComponent
+    PreloaderComponent,
+    BcChangerDirective
   ],
   imports: [
     BrowserModule,

@@ -51,12 +51,6 @@ export class HourlyForecastComponent implements OnInit {
             }     
         })
 
-        this.bg.$imageBg
-            .subscribe(res => {
-                if (res.length) {
-                    this.bg.backgroundsSet();                   
-                }
-            })
     }
 
     setActiveTime(hour: Daily){

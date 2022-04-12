@@ -1,14 +1,15 @@
+import { GetBackgroundService } from './../../services/get-background.service';
 import { StorageService } from './../../services/storage.service';
 import { WeatherService } from './../../services/weather.service';
 import { LoaderService } from './../../services/loader.service';
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-preloader',
     templateUrl: './preloader.component.html',
     styleUrls: ['./preloader.component.scss']
 })
-export class PreloaderComponent implements OnInit {
+export class PreloaderComponent implements OnInit, AfterContentInit {
 
     isLocationBlocked: boolean = false;
     applicationIsReady: boolean = false;
@@ -16,17 +17,24 @@ export class PreloaderComponent implements OnInit {
 
     constructor(private loader: LoaderService,
         private weatherService: WeatherService,
-        private storage:StorageService) { }
+        private storage:StorageService,
+        private bg:GetBackgroundService) { }
 
     ngOnInit(): void {
-        this.loader.locationIsAllowed$
-            .subscribe((isBlocked:boolean) => this.isLocationBlocked = !isBlocked);
+    }
 
-        this.loader.applicationReady$   
-            .subscribe((state: boolean) => this.applicationIsReady = state);
+    ngAfterContentInit(): void {
 
-        this.loader.imageReady$   
-            .subscribe((state: boolean) => this.imageIsReady = state);
+    this.bg.getBackground();
+
+    this.loader.locationIsAllowed$
+    .subscribe((isBlocked:boolean) => this.isLocationBlocked = !isBlocked);
+
+    this.loader.applicationReady$   
+        .subscribe((state: boolean) => this.applicationIsReady = state);
+
+    this.loader.imageReady$   
+        .subscribe((state: boolean) => this.imageIsReady = state);
     }
 
     startApplication(){

@@ -23,12 +23,6 @@ export class DailyForecastComponent implements OnInit {
                 this.week = week;
             })
 
-            this.bg.$imageBg
-            .subscribe(res => {
-                if (res.length) {
-                    this.bg.backgroundsSet();                   
-                }
-            })
     }
 
 }

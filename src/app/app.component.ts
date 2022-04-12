@@ -14,19 +14,13 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
 
-    constructor(private bg: GetBackgroundService){}
+    constructor(){}
 
     prepareRoute(outlet: RouterOutlet){
         return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation']
     }
 
     ngOnInit(){
-        this.bg.getBackground();
-        this.bg.$imageBg
-            .subscribe(res => {
-                if (res.length) {
-                    this.bg.backgroundsSet();                   
-                }
-            })            
+          
     }
 }
