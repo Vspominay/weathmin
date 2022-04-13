@@ -1,5 +1,4 @@
 import { LoaderService } from './services/loader.service';
-import { GetBackgroundService } from './services/get-background.service';
 import { slider } from './animations/routing-animations';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
@@ -14,13 +13,16 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
 
-    constructor(){}
+    applicationIsReady: boolean = false;
+    constructor(private loader:LoaderService){}
 
     prepareRoute(outlet: RouterOutlet){
         return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation']
     }
 
     ngOnInit(){
-          
+        this.loader.applicationReady$
+            .subscribe((state: boolean) => {                
+                this.applicationIsReady = state})
     }
 }

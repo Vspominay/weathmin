@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { GetBackgroundService } from './../../services/get-background.service';
 import { StorageService } from './../../services/storage.service';
 import { WeatherService } from './../../services/weather.service';
@@ -18,23 +19,57 @@ export class PreloaderComponent implements OnInit, AfterContentInit {
     constructor(private loader: LoaderService,
         private weatherService: WeatherService,
         private storage:StorageService,
-        private bg:GetBackgroundService) { }
+        private bg:GetBackgroundService,
+        private router:Router) { }
 
     ngOnInit(): void {
+        const locationExist = this.storage.locationExist();
+                    
+    if (locationExist) {
+        const lat = Number(localStorage.getItem('lat'));
+        const lon = Number(localStorage.getItem('lon'));
+
+        this.weatherService.getWeather(lat, lon);
+        this.loader.locationIsAllowed$.next(true);
+
+    }
+    else{            
+        navigator.geolocation.getCurrentPosition((success) =>{
+            const lat  = success.coords.latitude;
+            const lon  = success.coords.longitude;
+            this.storage.storeLocation(lat, lon);
+
+            this.weatherService.getWeather(lat, lon);
+            this.loader.locationIsAllowed$.next(true);
+
+        },
+        (err) => {
+            this.loader.locationIsAllowed$.next(false);
+        })
+    }
+
+    this.bg.getBackground();
     }
 
     ngAfterContentInit(): void {
-
-    this.bg.getBackground();
-
+        
     this.loader.locationIsAllowed$
-    .subscribe((isBlocked:boolean) => this.isLocationBlocked = !isBlocked);
+        .subscribe((isBlocked:boolean) => {
+            this.isLocationBlocked = !isBlocked;
+            this.checkReady();
+        });
 
     this.loader.applicationReady$   
-        .subscribe((state: boolean) => this.applicationIsReady = state);
+        .subscribe((state: boolean) => {
+            this.applicationIsReady = state;
+            this.checkReady();
+        });
 
-    this.loader.imageReady$   
-        .subscribe((state: boolean) => this.imageIsReady = state);
+    this.loader.imageReady$
+        .subscribe((state: boolean) => {
+            this.imageIsReady = state;
+            this.checkReady();
+        });
     }
 
     startApplication(){
@@ -43,6 +78,16 @@ export class PreloaderComponent implements OnInit, AfterContentInit {
         this.weatherService.getWeather(lat, lon);
         this.storage.storeLocation(lat, lon);
         this.loader.locationIsAllowed$.next(true);
+        this.loader.isLoaded();
+        this.router.navigate(['/weathmin']);
     }
 
+    checkReady(){
+
+        if(this.applicationIsReady && this.imageIsReady){            
+            this.loader.isLoaded();
+            this.router.navigate(['/weathmin']);
+
+        }
+    }
 }

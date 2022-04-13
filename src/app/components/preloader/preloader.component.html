@@ -1,4 +1,11 @@
-<div *ngIf="!applicationIsReady && !imageIsReady" class="preloader__page">
+<div
+    class="preloader__page"
+    style="
+        background: center center/ cover no-repeat
+                url(../../../assets/image/other/loaderBG.jpg),
+            rgba(0, 0, 0, 0.6);
+    "
+>
     <div class="preloader" style="opacity: 1">
         <svg
             version="1.1"

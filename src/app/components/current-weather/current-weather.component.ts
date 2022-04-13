@@ -16,36 +16,10 @@ export class CurrentWeatherComponent implements OnInit {
     currentWeather: CurrentWeather | any =  {};
 
 
-    constructor(private weatherService:WeatherService,
-        private storage:StorageService,
-        private loader: LoaderService) { }
+    constructor(private storage:StorageService) { }
 
     ngOnInit(): void {
-        const locationExist = this.storage.locationExist();
-                
-        if (locationExist) {
-            const lat = Number(localStorage.getItem('lat'));
-            const lon = Number(localStorage.getItem('lon'));
-
-            this.weatherService.getWeather(lat, lon);
-            this.loader.locationIsAllowed$.next(true);
-
-        }
-        else{            
-            navigator.geolocation.getCurrentPosition((success) =>{
-                const lat  = success.coords.latitude;
-                const lon  = success.coords.longitude;
-                this.storage.storeLocation(lat, lon);
-
-                this.weatherService.getWeather(lat, lon);
-                this.loader.locationIsAllowed$.next(true);
-
-            },
-            (err) => {
-                this.loader.locationIsAllowed$.next(false);
-            })
-        }
-
+        
         this.storage.$currentDay
             .subscribe((weather: CurrentWeather | any) => {
                 if (weather.city) {

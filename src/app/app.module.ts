@@ -1,3 +1,5 @@
+import { LoaderService } from './services/loader.service';
+import { LoadService } from './guards/load.service';
 import { CurrentModule } from './components/current-weather/current.component';
 import { DailyForecastComponent } from './components/daily-forecast/daily-forecast.component';
 import { NgModule } from '@angular/core';
@@ -36,7 +38,7 @@ import { BcChangerDirective } from './directives/bc-changer.directive';
     CurrentModule,
     FormsModule
   ],
-  providers: [],
+  providers: [LoadService, LoaderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
