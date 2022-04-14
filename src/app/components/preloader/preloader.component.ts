@@ -1,20 +1,25 @@
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { GetBackgroundService } from './../../services/get-background.service';
 import { StorageService } from './../../services/storage.service';
 import { WeatherService } from './../../services/weather.service';
 import { LoaderService } from './../../services/loader.service';
-import { AfterContentInit, Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
     selector: 'app-preloader',
     templateUrl: './preloader.component.html',
     styleUrls: ['./preloader.component.scss']
 })
-export class PreloaderComponent implements OnInit, AfterContentInit {
+export class PreloaderComponent implements OnInit, OnDestroy, AfterContentInit {
 
     isLocationBlocked: boolean = false;
     applicationIsReady: boolean = false;
     imageIsReady: boolean = false;
+
+    locationIsAllowedSub!: Subscription;
+    applicationReadySub!: Subscription;
+    imageReadySub!: Subscription;
 
     constructor(private loader: LoaderService,
         private weatherService: WeatherService,
@@ -53,23 +58,29 @@ export class PreloaderComponent implements OnInit, AfterContentInit {
 
     ngAfterContentInit(): void {
         
-    this.loader.locationIsAllowed$
-        .subscribe((isBlocked:boolean) => {
-            this.isLocationBlocked = !isBlocked;
-            this.checkReady();
+        this.locationIsAllowedSub =this.loader.locationIsAllowed$
+            .subscribe((isBlocked:boolean) => {
+                this.isLocationBlocked = !isBlocked;
+                this.checkReady();
         });
 
-    this.loader.applicationReady$   
-        .subscribe((state: boolean) => {
-            this.applicationIsReady = state;
-            this.checkReady();
+        this.applicationReadySub = this.loader.applicationReady$   
+            .subscribe((state: boolean) => {
+                this.applicationIsReady = state;
+                this.checkReady();
         });
 
-    this.loader.imageReady$
-        .subscribe((state: boolean) => {
-            this.imageIsReady = state;
-            this.checkReady();
+        this.imageReadySub = this.loader.imageReady$
+            .subscribe((state: boolean) => {
+                this.imageIsReady = state;
+                this.checkReady();
         });
+    }
+
+    ngOnDestroy(): void {
+        this.applicationReadySub.unsubscribe();
+        this.imageReadySub.unsubscribe();
+        this.locationIsAllowedSub.unsubscribe();
     }
 
     startApplication(){
@@ -87,7 +98,6 @@ export class PreloaderComponent implements OnInit, AfterContentInit {
         if(this.applicationIsReady && this.imageIsReady){            
             this.loader.isLoaded();
             this.router.navigate(['/weathmin']);
-
         }
     }
 }

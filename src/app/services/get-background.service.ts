@@ -23,35 +23,35 @@ export class GetBackgroundService {
                 if (weather.length) {
                     let weathMain:string = weather;
                     
-        let state = this.getRandomState(1,3);
+            let state = this.getRandomState(1,3);
 
-        switch (weathMain.toLowerCase()) {
-            case "clouds":
-              this.imageBg.next(`${imageSrc}few_clouds/few_clouds_state${state}.jpg`)
-                break;
-            case "clear":
-                this.imageBg.next(`${imageSrc}clear_sky/clear_sky_state${state}.jpg`)  
-                break;
-            case "snow":
-                this.imageBg.next(`${imageSrc}snow/snow_state1.jpg`) 
-                break;
-            case "rain":
-                this.imageBg.next(`${imageSrc}rain/rain_state${state}.jpg`)
-                break;
-            case "drizzle":
-                this.imageBg.next(`${imageSrc}rain/drizzle_state1.jpg`)  
-                break;
-            case "thunderstorm":
-                this.imageBg.next(`${imageSrc}thunderstorm/thunderstorm_state${state}.jpg`) 
-                break;
-            case "atmosphere":
-                this.imageBg.next(`${imageSrc}mist/mist_state3.jpg`) 
-                break;
-            default:
-                this.imageBg.next(`${imageSrc}rain/drizzle_state1.jpg`) 
-                break;
+            switch (weathMain.toLowerCase()) {
+                case "clouds":
+                this.imageBg.next(`${imageSrc}few_clouds/few_clouds_state${state}.jpg`)
+                    break;
+                case "clear":
+                    this.imageBg.next(`${imageSrc}clear_sky/clear_sky_state${state}.jpg`)  
+                    break;
+                case "snow":
+                    this.imageBg.next(`${imageSrc}snow/snow_state1.jpg`) 
+                    break;
+                case "rain":
+                    this.imageBg.next(`${imageSrc}rain/rain_state${state}.jpg`)
+                    break;
+                case "drizzle":
+                    this.imageBg.next(`${imageSrc}rain/drizzle_state1.jpg`)  
+                    break;
+                case "thunderstorm":
+                    this.imageBg.next(`${imageSrc}thunderstorm/thunderstorm_state${state}.jpg`) 
+                    break;
+                case "atmosphere":
+                    this.imageBg.next(`${imageSrc}mist/mist_state3.jpg`) 
+                    break;
+                default:
+                    this.imageBg.next(`${imageSrc}rain/drizzle_state1.jpg`) 
+                    break;
+                    }
                 }
-            }
         })
     }
 

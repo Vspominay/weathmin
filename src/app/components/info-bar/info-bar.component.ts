@@ -1,7 +1,8 @@
+import { Subscription } from 'rxjs';
 import { Wind } from './../../models/wind';
 import { Daily } from './../../models/daily';
 import { CurrentWeather } from './../../models/currentWeather';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -9,10 +10,14 @@ import { StorageService } from 'src/app/services/storage.service';
   templateUrl: './info-bar.component.html',
   styleUrls: ['./info-bar.component.scss']
 })
-export class InfoBarComponent implements OnInit {
+export class InfoBarComponent implements OnInit, OnDestroy {
 
     currentWeather: CurrentWeather | any =  {};
     week: Daily[] = [];
+
+    currentDaySub!: Subscription;
+    weekInformationSub!: Subscription;
+    hourlyInformationSub!: Subscription;
 
     constructor(
         private storage: StorageService
@@ -20,25 +25,24 @@ export class InfoBarComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.storage.$currentDay
-        .subscribe((weather: CurrentWeather | any) => {
-            if (weather.city) {
-                
-                let temp = this.currentWeather.probability;
+        this.currentDaySub = this.storage.$currentDay
+            .subscribe((weather: CurrentWeather | any) => {
+                if (weather.city) {
+                    
+                    let temp = this.currentWeather.probability;
 
-                this.currentWeather = weather;
-                this.currentWeather.probability = temp;   
-                this.setWindDirection(weather.wind);                       
-
-            }
+                    this.currentWeather = weather;
+                    this.currentWeather.probability = temp;   
+                    this.setWindDirection(weather.wind);                       
+                }
         });
 
-        this.storage.$weekInformation
+        this.weekInformationSub = this.storage.$weekInformation
         .subscribe((weekWeather: any | Daily[]) => {                
             if (weekWeather.length) {                
                 this.week = weekWeather.slice(1,4);
 
-                this.storage.$hourlyInformation
+                this.hourlyInformationSub = this.storage.$hourlyInformation
                     .subscribe((hours:any) => {
                         if (hours.today) {
                             
@@ -49,6 +53,13 @@ export class InfoBarComponent implements OnInit {
         })
     
     }
+
+    ngOnDestroy(): void {
+        this.currentDaySub.unsubscribe();    
+        this.weekInformationSub.unsubscribe();    
+        this.hourlyInformationSub.unsubscribe();    
+    }
+
 
     setWindDirection(wind: Wind){
         

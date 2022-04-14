@@ -1,5 +1,7 @@
 @import "./colors.scss";
 
+
+
 .button {
     &,
     a {
@@ -12,7 +14,6 @@
         transform: rotate(180deg);
     }
 
-    border: 2px solid $unactive-color;
     background: transparent;
     padding: 5px 10px;
     position: relative;
@@ -23,9 +24,18 @@
     transition: 0.2s;
     cursor: pointer;
 
+}
+
+
+@media (min-width:768px){
+    .button {
+        border: 2px solid $unactive-color;
+
+        
     &:hover {
         color: $textColor;
 
         border: 2px solid $textColor;
+    }
     }
 }

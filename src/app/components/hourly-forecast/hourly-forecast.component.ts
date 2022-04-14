@@ -1,7 +1,8 @@
+import { Subscription } from 'rxjs';
 import { GetBackgroundService } from './../../services/get-background.service';
 import { Daily } from './../../models/daily';
 import { StorageService } from './../../services/storage.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -9,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './hourly-forecast.component.html',
   styleUrls: ['./hourly-forecast.component.scss']
 })
-export class HourlyForecastComponent implements OnInit {
+export class HourlyForecastComponent implements OnInit, OnDestroy {
  
     displayDay: Daily[] | any = [];
     activeTime: Daily | any;
@@ -21,6 +22,7 @@ export class HourlyForecastComponent implements OnInit {
     todayMs = this.today.getTime();
     dayByUrl: number = 0;
 
+    ouptuthoursSub!: Subscription;
 
     constructor(
         private storage: StorageService,
@@ -34,7 +36,7 @@ export class HourlyForecastComponent implements OnInit {
     this.storage.getHourlyForecastByDay(this.dayByUrl);
     
 
-    this.storage.$ouptuthours
+    this.ouptuthoursSub =  this.storage.$ouptuthours
         .subscribe((hours: any) => {            
             if (Object.keys(hours).length) {                
                 if (new Date(hours.day).getDate() == new Date(this.todayMs).getDate() || 
@@ -51,6 +53,10 @@ export class HourlyForecastComponent implements OnInit {
             }     
         })
 
+    }
+
+    ngOnDestroy(): void {
+        this.ouptuthoursSub.unsubscribe();
     }
 
     setActiveTime(hour: Daily){
